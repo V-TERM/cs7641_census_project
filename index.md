@@ -4,7 +4,7 @@ In recent years, there has been a socio-political shift in rural and urban areas
 
 ## Problem Statement
 
-Given new census data has become publicly available, we want to understand the influence a demographics shift has on the political scene, and if forecasting the result [[3]](#3) can be potentially accomplished. The current state-of-the-art looks at a limited set of features included in the data. Our proposed solution will accommodate ACS and Census data to gain a deeper understanding of the context using a series of unsupervised and supervised techniques.
+Given new census data has become publicly available, we want to understand the influence a demographics shift has on the political scene, and if forecasting the result [[3]](#3) can be potentially accomplished. The current state-of-the-art looks at a limited set of features included in the data. Our proposed solution will accommodate ACS and Census data [a link](https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html?fbclid=IwAR0jbjLLCO3PeyQxeD01TJPXtcY37r1n_hvP1jYTUU5_3TBF7ipo6oxzGrY) to gain a deeper understanding of the context using a series of unsupervised and supervised techniques.
 
 ## Methods
 
@@ -39,3 +39,4 @@ Pollard, Rebecca D., Sara M. Pollard, and Scott Streit. "Predicting Propensity t
 
 <a id="5">[5]</a>
 Nelson, Brian K. "Time series analysis using autoregressive integrated moving average (ARIMA) models." Academic emergency medicine 5.7 (1998): 739-744.
+
