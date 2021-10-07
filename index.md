@@ -4,7 +4,7 @@ In recent years, there has been a socio-political shift in rural and urban areas
 
 ## Problem Statement
 
-Given new census data has become publicly available, we want to understand the influence a demographics shift has on the political scene, and if forecasting the result [[1-3]](#3) can be potentially accomplished. The current state-of-the-art looks at a limited set of features included in the data. Our proposed solution will accommodate ACS and Census data [[4]](https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html?fbclid=IwAR0jbjLLCO3PeyQxeD01TJPXtcY37r1n_hvP1jYTUU5_3TBF7ipo6oxzGrY) to gain a deeper understanding of the context using a series of unsupervised and supervised techniques.
+Given new census data has become publicly available [[1]](https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html?fbclid=IwAR0jbjLLCO3PeyQxeD01TJPXtcY37r1n_hvP1jYTUU5_3TBF7ipo6oxzGrY), we want to understand the influence a demographics shift has on the political scene, and if forecasting the result [[2-4]](#4) can be potentially accomplished. The current state-of-the-art looks at a limited set of features included in the data. Our proposed solution will accommodate ACS and Census data to gain a deeper understanding of the context using a series of unsupervised and supervised techniques.
 
 ## Methods
 
@@ -25,16 +25,16 @@ Firstly, the results of PCA will reveal the most important features of the censu
 Future works can contribute to locating the major factors which result in shift in the political environment.
 
 ## References
-<a id="1">[1]</a> 
+<a id="1">[1]</a> US census data
+
+<a id="2">[2]</a> 
 Caballero, Michael. "Predicting the 2020 US Presidential Election with Twitter." arXiv preprint arXiv:2107.09640 (2021).
 
-<a id="2">[2]</a>
+<a id="3">[3]</a>
 Colladon, Andrea Fronzetti. "Forecasting election results by studying brand importance in online news." International Journal of Forecasting 36.2 (2020): 414-427.
 
-<a id="3">[3]</a>
+<a id="4">[4]</a>
 Sethi, Rajiv, et al. "Models, Markets, and the Forecasting of Elections." arXiv preprint arXiv:2102.04936 (2021).
-
-<a id="4">[4]</a> US census data
 
 <a id="5">[5]</a>
 Jolliffe, Ian T., and Jorge Cadima. "Principal component analysis: a review and recent developments." Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 374.2065 (2016): 20150202.
