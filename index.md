@@ -27,11 +27,15 @@ Future works can contribute to locating the major factors which result in shift 
 ## References
 <a id="1">[1]</a> 
 Caballero, Michael. "Predicting the 2020 US Presidential Election with Twitter." arXiv preprint arXiv:2107.09640 (2021).
+
 <a id="2">[2]</a>
 Colladon, Andrea Fronzetti. "Forecasting election results by studying brand importance in online news." International Journal of Forecasting 36.2 (2020): 414-427.
+
 <a id="3">[3]</a>
 Sethi, Rajiv, et al. "Models, Markets, and the Forecasting of Elections." arXiv preprint arXiv:2102.04936 (2021).
+
 <a id="4">[4]</a>
 Pollard, Rebecca D., Sara M. Pollard, and Scott Streit. "Predicting Propensity to Vote with Machine Learning." arXiv preprint arXiv:2102.01535 (2021).
+
 <a id="5">[5]</a>
 Ma, Qianli, et al. "Learning representations for time series clustering." Advances in neural information processing systems 32 (2019): 3781-3791.
