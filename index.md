@@ -25,16 +25,16 @@ Firstly, the results of PCA will reveal the most important features of the censu
 Future works can contribute to locating the major factors which result in shift in the political environment.
 
 ## References
-<a id="1">[1]</a> US census data
+<a id="1">[1]</a> United States Census. "Decennial Census P.L. 94-171 Redistricting Data." Retrieved from https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html.
 
 <a id="2">[2]</a> 
-Caballero, Michael. "Predicting the 2020 US Presidential Election with Twitter." arXiv preprint arXiv:2107.09640 (2021).
+Caballero, Michael. "Predicting the 2020 US Presidential Election with Twitter." arXiv preprint arXiv:2107.09640 (2021). Retrieved from https://arxiv.org/abs/2107.09640.
 
 <a id="3">[3]</a>
-Colladon, Andrea Fronzetti. "Forecasting election results by studying brand importance in online news." International Journal of Forecasting 36.2 (2020): 414-427.
+Colladon, Andrea Fronzetti. "Forecasting election results by studying brand importance in online news." International Journal of Forecasting 36.2 (2020): 414-427. Retrieved from https://arxiv.org/abs/2105.05762.
 
 <a id="4">[4]</a>
-Sethi, Rajiv, et al. "Models, Markets, and the Forecasting of Elections." arXiv preprint arXiv:2102.04936 (2021).
+Sethi, Rajiv, et al. "Models, Markets, and the Forecasting of Elections." arXiv preprint arXiv:2102.04936 (2021). Retrieved from https://arxiv.org/abs/2102.04936.
 
 <a id="5">[5]</a>
 Jolliffe, Ian T., and Jorge Cadima. "Principal component analysis: a review and recent developments." Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 374.2065 (2016): 20150202.
@@ -46,7 +46,7 @@ Nelson, Brian K. "Time series analysis using autoregressive integrated moving av
 Uysal, Ilhan, and H. Altay Güvenir. "An overview of regression techniques for knowledge discovery." The Knowledge Engineering Review 14.4 (1999): 319-340.
 
 <a id="8">[8]</a>
-Pollard, Rebecca D., Sara M. Pollard, and Scott Streit. "Predicting Propensity to Vote with Machine Learning." arXiv preprint arXiv:2102.01535 (2021).
+Pollard, Rebecca D., Sara M. Pollard, and Scott Streit. "Predicting Propensity to Vote with Machine Learning." arXiv preprint arXiv:2102.01535 (2021). Retrieved from https://arxiv.org/abs/2102.01535.
 
 <a id="9">[9]</a>
 Torrey, Lisa, and Jude Shavlik. "Transfer learning." Handbook of research on machine learning applications and trends: algorithms, methods, and techniques. IGI global, 2010. 242-264.
