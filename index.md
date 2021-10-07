@@ -15,7 +15,7 @@ Given new census data has become publicly available, we want to understand the i
 
 ### Supervised learning
 
-- **Regression**: Utilizing the most important features from the results of PCA, we can form a regression model to fit a N-dimensional model for our data. To avoid overfitting, we could utilize lasso, ridge, or elastic regularization to penalize highly complex models. 
+- **Regression**: Utilizing the most important features from the results of PCA, we can form a regression model [[8]](#8) to fit a N-dimensional model for our data. To avoid overfitting, we could utilize lasso, ridge, or elastic regularization to penalize highly complex models. 
 - **Deep learning model**: We can train a deep learning neural network and simplify the problem to a classification task [[1]](#1), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning, hyperparameter tuning, batch training etc. to try and increase the accuracy of our model.
 
 ## Potential results and discussion
@@ -45,3 +45,5 @@ Nelson, Brian K. "Time series analysis using autoregressive integrated moving av
 <a id="7">[7]</a>
 Jolliffe, Ian T., and Jorge Cadima. "Principal component analysis: a review and recent developments." Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 374.2065 (2016): 20150202.
 
+<a id="8">[8]</a>
+Uysal, Ilhan, and H. Altay Güvenir. "An overview of regression techniques for knowledge discovery." The Knowledge Engineering Review 14.4 (1999): 319-340.
