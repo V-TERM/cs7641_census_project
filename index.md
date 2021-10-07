@@ -16,7 +16,7 @@ Given new census data has become publicly available, we want to understand the i
 ### Supervised learning
 
 - **Regression**: Utilizing the most important features from the results of PCA, we can form a regression model [[7]](#7) to fit a N-dimensional model for our data. To avoid overfitting, we could utilize lasso, ridge, or elastic regularization to penalize highly complex models. 
-- **Deep learning model**: We can train a deep learning neural network and simplify the problem to a classification task [[8]](#8), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning, hyperparameter tuning, batch training etc. to try and increase the accuracy of our model.
+- **Deep learning model**: We can train a deep learning neural network and simplify the problem to a classification task [[8]](#8), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning [[9]](#9), hyperparameter tuning [[10]](#10), batch training etc. to try and increase the accuracy of our model.
 
 ## Potential results and discussion
 
@@ -34,17 +34,22 @@ Colladon, Andrea Fronzetti. "Forecasting election results by studying brand impo
 <a id="3">[3]</a>
 Sethi, Rajiv, et al. "Models, Markets, and the Forecasting of Elections." arXiv preprint arXiv:2102.04936 (2021).
 
-<a id="6">[4]</a> US census data
+<a id="4">[4]</a> US census data
 
-<a id="7">[5]</a>
+<a id="5">[5]</a>
 Jolliffe, Ian T., and Jorge Cadima. "Principal component analysis: a review and recent developments." Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 374.2065 (2016): 20150202.
 
-<a id="5">[6]</a>
+<a id="6">[6]</a>
 Nelson, Brian K. "Time series analysis using autoregressive integrated moving average (ARIMA) models." Academic emergency medicine 5.7 (1998): 739-744.
 
-<a id="8">[7]</a>
+<a id="7">[7]</a>
 Uysal, Ilhan, and H. Altay Güvenir. "An overview of regression techniques for knowledge discovery." The Knowledge Engineering Review 14.4 (1999): 319-340.
 
-<a id="4">[8]</a>
+<a id="8">[8]</a>
 Pollard, Rebecca D., Sara M. Pollard, and Scott Streit. "Predicting Propensity to Vote with Machine Learning." arXiv preprint arXiv:2102.01535 (2021).
 
+<a id="9">[9]</a>
+Torrey, Lisa, and Jude Shavlik. "Transfer learning." Handbook of research on machine learning applications and trends: algorithms, methods, and techniques. IGI global, 2010. 242-264.
+
+<a id="10">[10]</a>
+Claesen, Marc, et al. "Hyperparameter tuning in python using optunity." Proceedings of the international workshop on technical computing for machine learning and mathematical engineering. Vol. 1. No. 3. 2014.
