@@ -25,29 +25,13 @@ Firstly, the results of PCA will reveal the most important features of the censu
 Future works can contribute to locating the major factors which result in shift in the political environment.
 
 ## References
-- FiveThirtyEight’s methodology for forecasting the 2018 midterm elections: link
-- FiveThirtyEight’s methodology for forecasting the 2020 presidential election: link 
-- Related work (not using census data)
-  - Prediction of election results using social media: link
-  - Prediction of election results using online news: link
-  - Prediction of election results using markets: link
-  - Inferring propensity to vote: link
-  - Learning representations from time-series data: link
-
-## Timeline / proposed milestones
-
-### Individual member tasks
-
-| Supervised Model | Tony and Ramachandren |
-| Unsupervised Model | Monish, Eric and Vyshnavi |
-
-### Timeline
-
-- Oct 19: Select attributes in census data to use; select preliminary model design. 
-- Oct 26: Complete extraction of census dataset; begin writing preprocessing scripts.
-- Nov 2: Complete data preprocessing; begin training model and evaluating results.
-- Nov 9: Continue training and evaluation; work on improving methodology.
-- Nov 16: Midterm report due. Finalize results for report.
-- Nov 23: Continue training and evaluation; work on improving methodology.
-- Nov 30: Continue training and evaluation; work on improving methodology.
-- Dec 7: Final report due. Finalize results for report.
+<a id="1">[1]</a> 
+Caballero, Michael. "Predicting the 2020 US Presidential Election with Twitter." arXiv preprint arXiv:2107.09640 (2021).
+<a id="2">[2]</a>
+Colladon, Andrea Fronzetti. "Forecasting election results by studying brand importance in online news." International Journal of Forecasting 36.2 (2020): 414-427.
+<a id="3">[3]</a>
+Sethi, Rajiv, et al. "Models, Markets, and the Forecasting of Elections." arXiv preprint arXiv:2102.04936 (2021).
+<a id="4">[4]</a>
+Pollard, Rebecca D., Sara M. Pollard, and Scott Streit. "Predicting Propensity to Vote with Machine Learning." arXiv preprint arXiv:2102.01535 (2021).
+<a id="5">[5]</a>
+Ma, Qianli, et al. "Learning representations for time series clustering." Advances in neural information processing systems 32 (2019): 3781-3791.
