@@ -6,6 +6,12 @@ In recent years, there has been a socio-political shift in rural and urban areas
 
 Given new census data has become publicly available, we want to understand the influence a demographics shift has on the political scene, and if forecasting the result can be potentially accomplished. The current state-of-the-art looks at a limited set of features included in the data. Our proposed solution will accommodate ACS and Census data to gain a deeper understanding of the context using a series of unsupervised and supervised techniques.
 
+## Potential results and discussion 
+
+  . Analysis on PCA results: feature importance across the census-voting prediction scenario. 
+  . Demographic shifts across the years and how the said shifts may/not affect the voting.
+  . A robust ML model which predicts the voting results given demographic features.
+
 
 
 
