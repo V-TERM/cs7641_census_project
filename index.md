@@ -8,11 +8,11 @@ Given new census data has become publicly available, we want to understand the i
 
 ## Potential results and discussion 
 
-   Analysis on PCA results: feature importance across the census-voting prediction scenario
+   <space><space>*Analysis on PCA results: feature importance across the census-voting prediction scenario
   
-   Demographic shifts across the years and how the said shifts may/not affect the voting
+   <space><space>*Demographic shifts across the years and how the said shifts may/not affect the voting
   
-   A robust ML model which predicts the voting results given demographic features
+   <space><space>*A robust ML model which predicts the voting results given demographic features
 
 
 
