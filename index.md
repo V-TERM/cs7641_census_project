@@ -16,7 +16,7 @@ Given new census data has become publicly available [[1]](https://www.census.gov
 ### Supervised learning
 
 - **Regression**: Utilizing the most important features from the results of PCA, we aim to build a regression model [[7]](#7) to fit a N-dimensional model for our data. To avoid overfitting techniques such as lasso, ridge, or elastic regularization can be utilized to penalize highly complex models. 
-- **Deep learning model**: We plan to train a deep learning neural network and simplify the problem to a classification task [[8]](#8), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning [[9]](#9), hyperparameter tuning [[10]](#10), batch training etc. to try and increase the accuracy of our model.
+- **Deep learning**: We plan to train a deep learning neural network and simplify the problem to a classification task [[8]](#8), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning [[9]](#9), hyperparameter tuning [[10]](#10), batch training etc. to try and increase the accuracy of our model.
 
 ## Potential results and discussion
 
