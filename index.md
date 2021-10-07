@@ -10,13 +10,13 @@ Given new census data has become publicly available, we want to understand the i
 
 ### Unsupervised learning
 
-- Feature engineering: We can implement Principal Component Analysis (PCA) to identify the _k_ most important principal components. Using this, we can reduce the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results.
-- Time series analysis: Given that our data contains 20-30 years of reliable census data, we can use **ARIMA** to visualize the time series and analyze the trends of every feature, to find the optimal parameters to build the model. We can also use _temporal pattern matching_ to identify recurring features and tendencies, thereby examining which features have the greatest influence on the outcome.
+- **Feature engineering**: We can implement Principal Component Analysis (PCA) to identify the _k_ most important principal components. Using this, we can reduce the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results.
+- **Time series analysis**: Given that our data contains 20-30 years of reliable census data, we can use **ARIMA** to visualize the time series and analyze the trends of every feature, to find the optimal parameters to build the model. We can also use _temporal pattern matching_ to identify recurring features and tendencies, thereby examining which features have the greatest influence on the outcome.
 
 ### Supervised learning
 
-- Regression: Utilizing the most important features from the results of PCA, we can form a regression model to fit a N-dimensional model for our data. To avoid overfitting, we could utilize lasso, ridge, or elastic regularization to penalize highly complex models. 
-- Deep learning model: We can train a deep learning neural network and simplify the problem to a classification task, where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning, hyperparameter tuning, batch training etc. to try and increase the accuracy of our model.
+- **Regression**: Utilizing the most important features from the results of PCA, we can form a regression model to fit a N-dimensional model for our data. To avoid overfitting, we could utilize lasso, ridge, or elastic regularization to penalize highly complex models. 
+- **Deep learning model**: We can train a deep learning neural network and simplify the problem to a classification task, where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning, hyperparameter tuning, batch training etc. to try and increase the accuracy of our model.
 
 ### Markdown
 
