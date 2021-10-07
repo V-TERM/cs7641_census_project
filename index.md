@@ -10,7 +10,7 @@ Given new census data has become publicly available [[1]](https://www.census.gov
 
 ### Unsupervised learning
 
-- **Feature engineering**: We aim to implement Principal Component Analysis (PCA) [[5]](#5) to identify the _k_ most important principal components. Using this, we intend to reduce the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results.
+- **Feature engineering**: First we preprocess the data. Next, we plan to implement Principal Component Analysis (PCA) [[5]](#5) for identifying the _k_ most important principal components. Using this, we intend to reduce the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results.
 - **Time series analysis**: Given that our data contains 20-30 years of reliable census data, we intend to use ARIMA [[6]](#6) to visualize the time series and analyze the trends of every feature, to find the optimal parameters to build the model. We also plan to investigate _temporal pattern matching_ to identify recurring features and tendencies, thereby examining which features have the greatest influence on the outcome.
 
 ### Supervised learning
