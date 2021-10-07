@@ -4,19 +4,19 @@ In recent years, there has been a socio-political shift in rural and urban areas
 
 ## Problem Statement
 
-Given new census data has become publicly available, we want to understand the influence a demographics shift has on the political scene, and if forecasting the result [[1-3]](#3) can be potentially accomplished. The current state-of-the-art looks at a limited set of features included in the data. Our proposed solution will accommodate ACS and Census data [[6]](https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html?fbclid=IwAR0jbjLLCO3PeyQxeD01TJPXtcY37r1n_hvP1jYTUU5_3TBF7ipo6oxzGrY) to gain a deeper understanding of the context using a series of unsupervised and supervised techniques.
+Given new census data has become publicly available, we want to understand the influence a demographics shift has on the political scene, and if forecasting the result [[1-3]](#3) can be potentially accomplished. The current state-of-the-art looks at a limited set of features included in the data. Our proposed solution will accommodate ACS and Census data [[4]](https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html?fbclid=IwAR0jbjLLCO3PeyQxeD01TJPXtcY37r1n_hvP1jYTUU5_3TBF7ipo6oxzGrY) to gain a deeper understanding of the context using a series of unsupervised and supervised techniques.
 
 ## Methods
 
 ### Unsupervised learning
 
-- **Feature engineering**: We can implement Principal Component Analysis (PCA) [[7]](#7) to identify the _k_ most important principal components. Using this, we can reduce the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results.
-- **Time series analysis**: Given that our data contains 20-30 years of reliable census data, we can use **ARIMA** [[5]](#5) to visualize the time series and analyze the trends of every feature, to find the optimal parameters to build the model. We can also use _temporal pattern matching_ to identify recurring features and tendencies, thereby examining which features have the greatest influence on the outcome.
+- **Feature engineering**: We can implement Principal Component Analysis (PCA) [[5]](#5) to identify the _k_ most important principal components. Using this, we can reduce the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results.
+- **Time series analysis**: Given that our data contains 20-30 years of reliable census data, we can use **ARIMA** [[6]](6) to visualize the time series and analyze the trends of every feature, to find the optimal parameters to build the model. We can also use _temporal pattern matching_ to identify recurring features and tendencies, thereby examining which features have the greatest influence on the outcome.
 
 ### Supervised learning
 
-- **Regression**: Utilizing the most important features from the results of PCA, we can form a regression model [[8]](#8) to fit a N-dimensional model for our data. To avoid overfitting, we could utilize lasso, ridge, or elastic regularization to penalize highly complex models. 
-- **Deep learning model**: We can train a deep learning neural network and simplify the problem to a classification task [[4]](#4), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning, hyperparameter tuning, batch training etc. to try and increase the accuracy of our model.
+- **Regression**: Utilizing the most important features from the results of PCA, we can form a regression model [[7]](#7) to fit a N-dimensional model for our data. To avoid overfitting, we could utilize lasso, ridge, or elastic regularization to penalize highly complex models. 
+- **Deep learning model**: We can train a deep learning neural network and simplify the problem to a classification task [[8]](#8), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning, hyperparameter tuning, batch training etc. to try and increase the accuracy of our model.
 
 ## Potential results and discussion
 
@@ -34,16 +34,17 @@ Colladon, Andrea Fronzetti. "Forecasting election results by studying brand impo
 <a id="3">[3]</a>
 Sethi, Rajiv, et al. "Models, Markets, and the Forecasting of Elections." arXiv preprint arXiv:2102.04936 (2021).
 
-<a id="4">[4]</a>
-Pollard, Rebecca D., Sara M. Pollard, and Scott Streit. "Predicting Propensity to Vote with Machine Learning." arXiv preprint arXiv:2102.01535 (2021).
+<a id="6">[4]</a> US census data
 
-<a id="5">[5]</a>
-Nelson, Brian K. "Time series analysis using autoregressive integrated moving average (ARIMA) models." Academic emergency medicine 5.7 (1998): 739-744.
-
-<a id="6">[6]</a> US census data
-
-<a id="7">[7]</a>
+<a id="7">[5]</a>
 Jolliffe, Ian T., and Jorge Cadima. "Principal component analysis: a review and recent developments." Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 374.2065 (2016): 20150202.
 
-<a id="8">[8]</a>
+<a id="5">[6]</a>
+Nelson, Brian K. "Time series analysis using autoregressive integrated moving average (ARIMA) models." Academic emergency medicine 5.7 (1998): 739-744.
+
+<a id="8">[7]</a>
 Uysal, Ilhan, and H. Altay Güvenir. "An overview of regression techniques for knowledge discovery." The Knowledge Engineering Review 14.4 (1999): 319-340.
+
+<a id="4">[8]</a>
+Pollard, Rebecca D., Sara M. Pollard, and Scott Streit. "Predicting Propensity to Vote with Machine Learning." arXiv preprint arXiv:2102.01535 (2021).
+
