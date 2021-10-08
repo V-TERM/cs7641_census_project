@@ -26,7 +26,7 @@ Future works can contribute to locating the major factors which result in shift 
 
 ## Video Proposal
 
-[![Video Proposal]] (https://github.com/V-TERM/cs7641_census_project/blob/668bfdc1adaf488440158ca84231d255c03efdf6/Project_Proposal.mp4)
+[![Video Proposal]] (https://github.com/V-TERM/cs7641_census_project/blob/d7792ce8edb0863186cde38d5272fcab48605163/proposal_video.drawio.png) (https://github.com/V-TERM/cs7641_census_project/blob/668bfdc1adaf488440158ca84231d255c03efdf6/Project_Proposal.mp4)
           
 ## References
 <a id="1">[1]</a> United States Census. "Decennial Census P.L. 94-171 Redistricting Data." Retrieved from https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html.
