@@ -24,6 +24,10 @@ Firstly, the results of PCA will reveal the most important features of the censu
 
 Future works can contribute to locating the major factors which result in shift in the political environment.
 
+## Video Proposal
+
+[![Video Proposal]] (https://github.com/V-TERM/cs7641_census_project/blob/668bfdc1adaf488440158ca84231d255c03efdf6/Project_Proposal.mp4)
+          
 ## References
 <a id="1">[1]</a> United States Census. "Decennial Census P.L. 94-171 Redistricting Data." Retrieved from https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html.
 
