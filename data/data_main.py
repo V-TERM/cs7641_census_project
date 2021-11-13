@@ -19,6 +19,9 @@ class CensusProjectData(object):
 
         # Preprocess all data.
         pass
+    
+    def collect_acs_data(self):
+        collect_acs()
 
     def collect_atlas_data(self):
         """Collect data from US Election Atlas, save to .csv."""

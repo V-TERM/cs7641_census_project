@@ -5,9 +5,11 @@ collected from American Community Survey (ACS) data.
 This website provides:
 - a multitude of potential features to use in model
 """
-
+from collections import defaultdict
+import os
 import requests
 import json
+import urllib.request
 import pandas as pd
 import numpy as np
 
@@ -60,7 +62,7 @@ def collect_acs():
 
     for cid in  county_ids:
         #print(cid)
-        url = "https://api.census.gov/data/2018/acs/acs5?get="+\
+        url = "https://api.census.gov/data/2018/acs/acs1?get="+\
                 acs_variables_string+"&for=block%20group:*&in=state:26%20county:"+cid+"&key="+API_key
         response = requests.get(url)
 
@@ -80,3 +82,69 @@ def collect_acs():
 def preprocess_acs():
     # TODO
     pass
+
+
+
+years = [i for i in range(2007, 2020)]
+print(years)
+def pull_Json(Year):
+    groups_url = F"https://api.census.gov/data/{Year}/acs/acs1/groups.json"
+    variables_url = F"https://api.census.gov/data/{Year}/acs/acs1/variables.json"
+    tags_url = F"https://api.census.gov/data/{Year}/acs/acs1/tags.json"
+    if not os.path.isdir(F'./tmp/{Year}'):
+        os.makedirs(F'./tmp/{Year}')
+    try:
+        urllib.request.urlretrieve(groups_url, F'./tmp/{Year}/groups.json')
+    except:
+        print("Groups", Year)
+    try:
+        urllib.request.urlretrieve(variables_url, F'./tmp/{Year}/variables.json')
+    except:
+        print("Variables", Year)
+    try:
+        urllib.request.urlretrieve(tags_url, F'./tmp/{Year}/tags.json')
+    except:
+        print("Tags", Year)
+
+# [pull_json(year) for year in years]
+def find_common_json(years): 
+    groups = defaultdict(int)
+    variables = defaultdict(int)   
+
+    for Year in years:
+        groups_json = json.load(open(F'./tmp/{Year}/groups.json')) 
+        for elem in groups_json['groups']:
+            groups[elem['name']] += 1
+    
+    ret_groups = [k for k, v in groups.items() if v == len(years)]
+    print("groups reduced from:", len(groups), "to:", len(ret_groups))
+
+
+    for Year in years:
+        variables_json = json.load(open(F'./tmp/{Year}/variables.json'))['variables']
+        for var in variables_json.keys():
+            if var not in ['for', 'in', 'ucgid']:
+                variables[var] += 1
+
+    ret_variables = [k for k, v in variables.items() if v == len(years)]
+    print("variables reduced from:", len(variables), "to:", len(ret_variables))
+
+    groups_json = json.load(open(F'./tmp/2019/groups.json'))['groups']
+    variables_json = json.load(open(F'./tmp/2019/variables.json'))['variables']
+    
+    groups_dict = {}
+    variables_dict = {}
+    for g in groups_json:
+        if g['name'] in ret_groups:
+            groups_dict[g['name']] = g
+    for v in ret_variables:
+        variables_dict[v] = variables_json[v]
+
+    json.dump(groups_dict, open('./tmp/groups.json', 'w'))
+    json.dump(variables_dict, open('./tmp/variables.json', 'w'))
+
+
+    
+
+
+find_common_json(years)

@@ -14,7 +14,7 @@ from selenium.webdriver.chrome.options import Options
 import pandas as pd
 
 # NOTE: need to change this value depending on wher chromedriver is installed
-DRIVER_PATH = "/usr/local/bin/chromedriver"
+DRIVER_PATH = "C:\\chromedriver\\chromedriver.exe" #"/usr/local/bin/chromedriver"
 
 # for extacting county data
 PRES_ELEC_YRS = ['2000', '2004', '2008', '2012', '2016', '2020']
