@@ -3,6 +3,7 @@
 """
 
 from atlas_data import collect_atlas, preprocess_atlas
+from census_acs_data import pull_Json, YEARS
 from census_acs_data import collect_acs, preprocess_acs
 from census_redistrict_data import collect_redistrict, preprocess_redistrict
 from mit_data import collect_mit, preprocess_mit
@@ -15,10 +16,20 @@ class CensusProjectData(object):
         
         # Collect all data.
         self.collect_atlas_data()
+        self.collect_acs_data()
         pass
 
         # Preprocess all data.
         pass
+
+    def collect_acs_data(self):
+        if not osp.isdir(osp.join(self.root_path, "2009")):
+            for year in YEARS:
+                pull_Json(year)
+        
+        
+
+        #collect_acs()
 
     def collect_atlas_data(self):
         """Collect data from US Election Atlas, save to .csv."""

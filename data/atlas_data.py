@@ -75,59 +75,65 @@ def visit_atlas_page_county(driver, year, state, office):
     url += "fips={}&".format(FIPS_CODES[state])
     url += "f=1&off={}&".format(office)
     url += "elect=0&class=3"
-    print("Visiting", url)
 
-    # Scrape data from webpage
-    driver.get(url)
-    tables = driver.find_elements(By.TAG_NAME, 'table')
+    urls = [url]
+    if office == '3':  # account for class 1, 2 senate elections
+        urls += [url[:-1] + "2", url[:-1] + "1"]
 
-    ts = []
-    for table in tables:
-        t = table.text.split('\n')
+    for url in urls:
+        print("Visiting", url)
 
-        if not t:  # get rid of rows with no values (TODO)
-            continue
+        # Scrape data from webpage
+        driver.get(url)
+        tables = driver.find_elements(By.TAG_NAME, 'table')
 
-        for i in range(len(t)):
-            t[i] = t[i].strip('\%')
-        for i in range(1, len(t)):
-            t[i] = t[i][2:]  # strip leading whitespace
+        ts = []
+        for table in tables:
+            t = table.text.split('\n')
 
-        ts += [t]
+            if not t:  # get rid of rows with no values (TODO)
+                continue
 
-    # infer first row candidate name
-    d = [t[0].replace(' ', '') for t in ts]
-    d2 = [x.replace('.', '') for x in d]
-    d2 = list(filter(None, d2))
-    frc_name = long_substr(d2)  # note: w/o whitespace
-    #print(d2)
-    #print(frc_name)
+            for i in range(len(t)):
+                t[i] = t[i].strip('\%')
+            for i in range(1, len(t)):
+                t[i] = t[i][2:]  # strip leading whitespace
 
-    for j, t in enumerate(ts):
-        #print(t)
-        t = list(filter(None, t))
-        if not t:
-            continue 
+            ts += [t]
 
-        table_data = [year, state]
+        # infer first row candidate name
+        d = [t[0].replace(' ', '') for t in ts]
+        d2 = [x.replace('.', '') for x in d]
+        d2 = list(filter(None, d2))
+        frc_name = long_substr(d2)  # note: w/o whitespace
+        #print(d2)
+        #print(frc_name)
 
-        # Add county, first cand, result
-        county = d2[j][:-3].replace(frc_name, '')
-        frc_res = t[0][-4:]
-        table_data += [county, frc_name, frc_res]
+        for j, t in enumerate(ts):
+            #print(t)
+            t = list(filter(None, t))
+            if not t:
+                continue 
 
-        # Add remaining cand. + result
-        for i in range(1, len(t)):
-            cand_res = t[i].split(' ')[-1]
-            cand_name = t[i].strip(' ' + cand_res)
-            table_data += [cand_name, cand_res]
-        
-        if len(table_data) < 11:
-            table_data += [''] * (11 - len(table_data))
+            table_data = [year, state]
 
-        assert len(table_data) == 11
-        #print(table_data)
-        data.append(table_data)
+            # Add county, first cand, result
+            county = d2[j][:-3].replace(frc_name, '')
+            frc_res = t[0][-4:]
+            table_data += [county, frc_name, frc_res]
+
+            # Add remaining cand. + result
+            for i in range(1, len(t)):
+                cand_res = t[i].split(' ')[-1]
+                cand_name = t[i].strip(' ' + cand_res)
+                table_data += [cand_name, cand_res]
+            
+            if len(table_data) < 11:
+                table_data += [''] * (11 - len(table_data))
+
+            assert len(table_data) == 11
+            #print(table_data)
+            data.append(table_data)
 
     return data
 
