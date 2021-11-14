@@ -21,6 +21,9 @@ class CensusProjectData(object):
 
         # Preprocess all data.
         pass
+    
+    def collect_acs_data(self):
+        collect_acs()
 
     def collect_acs_data(self):
         if not osp.isdir(osp.join(self.root_path, "2009")):

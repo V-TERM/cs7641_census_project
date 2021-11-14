@@ -5,7 +5,10 @@ collected from American Community Survey (ACS) data.
 This website provides:
 - a multitude of potential features to use in model
 """
+<<<<<<< HEAD
 
+=======
+>>>>>>> 06bf306e7d91be6857659fc39f413d164ad74db7
 from collections import defaultdict
 import os
 import requests
