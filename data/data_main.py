@@ -3,7 +3,7 @@
 """
 
 from atlas_data import collect_atlas, preprocess_atlas
-from census_acs_data import pull_Json, YEARS
+from census_acs_data import find_common_json, pull_Json, YEARS
 from census_acs_data import collect_acs, preprocess_acs
 from census_redistrict_data import collect_redistrict, preprocess_redistrict
 from mit_data import collect_mit, preprocess_mit
@@ -29,8 +29,7 @@ class CensusProjectData(object):
         if not osp.isdir(osp.join(self.root_path, "2009")):
             for year in YEARS:
                 pull_Json(year)
-        
-        
+            find_common_json(YEARS)
 
         #collect_acs()
 
