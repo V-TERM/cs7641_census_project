@@ -21,7 +21,7 @@ YEARS = [str(i) for i in range(2009, 2020)]  # 2009 to 2019
 def pull_Json(Year):
     groups_url = F"https://api.census.gov/data/{Year}/acs/acs5/profile/groups.json"
     variables_url = F"https://api.census.gov/data/{Year}/acs/acs5/profile/variables.json"
-    tags_url = F"https://api.census.gov/data/{Year}/acs/acs51/tags.json"
+    tags_url = F"https://api.census.gov/data/{Year}/acs/acs5/tags.json"
     if not os.path.isdir(F'./tmp/{Year}'):
         os.makedirs(F'./tmp/{Year}')
     try:
