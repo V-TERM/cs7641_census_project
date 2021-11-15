@@ -1,0 +1,9 @@
+{
+  "groups": [
+    {
+      "name": "CB1600CBP",
+      "description": "Geography Area Series: County Business Patterns by Employment Size Class and Legal Form of Organization: 2016",
+      "variables": "https://api.census.gov/data/2016/cbp/groups/CB1600CBP.json"
+    }
+  ]
+}
