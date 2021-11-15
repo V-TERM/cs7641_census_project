@@ -1,0 +1,9 @@
+{
+  "groups": [
+    {
+      "name": "CB1300CBP",
+      "description": "Geography Area Series: County Business Patterns by Employment Size Class and Legal Form of Organization: 2013",
+      "variables": "https://api.census.gov/data/2013/cbp/groups/CB1300CBP.json"
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "variables": {
+    "for": {
+      "label": "Census API FIPS 'for' clause",
+      "concept": "Census API Geography Specification",
+      "predicateType": "fips-for",
+      "group": "N/A",
+      "limit": 0,
+      "predicateOnly": true
+    },
+    "in": {
+      "label": "Census API FIPS 'in' clause",
+      "concept": "Census API Geography Specification",
+      "predicateType": "fips-in",
+      "group": "N/A",
+      "limit": 0,
+      "predicateOnly": true
+    },
+    "NAICS2007": {
+      "label": "NAICS Industry Code",
+      "concept": "Industry classification",
+      "required": "default displayed",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 2135
+    },
+    "EMPSZES_TTL": {
+      "label": "Title of Employment size of establishment",
+      "concept": "Employer Statistics",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "PAYQTR1_F": {
+      "label": "Flag for Total First Quarter Payroll",
+      "concept": "Employer Statistics",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "EMP_N": {
+      "label": "Noise flag for Total Mid-March Employees",
+      "concept": "Employer Statistics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FOOTID_GEO": {
+      "label": "FootID of Geography",
+      "concept": "Geographic Characteristics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "PAYQTR1_N": {
+      "label": "Noise flag for Total First Quarter Payroll Data",
+      "concept": "Employer Statistics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "CSA": {
+      "label": "Combined Statistical Area",
+      "concept": "Geographic Characteristics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "NAICS2007_TTL": {
+      "label": "Title of NAICS code",
+      "concept": "Industry classification",
+      "group": "N/A",
+      "limit": 0
+    },
+    "LFO": {
+      "label": "Legal form of organization",
+      "concept": "Employer Statistics",
+      "required": "default displayed",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "YEAR": {
+      "label": "Year",
+      "concept": "Employer Statistics",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MD": {
+      "label": "Metro Division",
+      "concept": "Geographic Characteristics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FOOTID_NAICS": {
+      "label": "FootID of NAICS code",
+      "concept": "Industry classification",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MSA": {
+      "label": "Metropolitan/Micropolitan Statistical Area Code",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "EMP_F": {
+      "label": "Flag for Number of employees",
+      "concept": "Employer Statistics",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "PAYQTR1_N_F": {
+      "label": "Flag for Noise field for Total First Quarter Payroll",
+      "concept": "Employer Statistics",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "COUNTY": {
+      "label": "FIPS County Code",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "GEO_TTL": {
+      "label": "Title of Geography",
+      "concept": "Geographic Characteristics",
+      "group": "N/A",
+      "limit": 0
+    },
+    "ESTAB_F": {
+      "label": "Flag for Total number of Establishments",
+      "concept": "Employer Statistics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "ST": {
+      "label": "FIPS State Code",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "PAYANN_N": {
+      "label": "Noise flag for Total Annual Payroll",
+      "concept": "Employer Statistics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "PAYQTR1": {
+      "label": "Total First Quarter Payroll",
+      "concept": "Employer Statistics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "EMP": {
+      "label": "Total Number of Employees",
+      "concept": "Employer Statistics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "PAYANN_F": {
+      "label": "Flag for Total Annual Payroll",
+      "concept": "Employer Statistics",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "PAYANN_N_F": {
+      "label": "Flag for Noise field for Total Annual Payroll",
+      "concept": "Employer Statistics",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "LFO_TTL": {
+      "label": "Title of legal form of organization",
+      "concept": "Employer Statistics",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "GEO_ID": {
+      "label": "ID of Geography",
+      "concept": "Geographic Characteristics",
+      "group": "N/A",
+      "limit": 0
+    },
+    "GEOTYPE": {
+      "label": "Geography type",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "ESTAB": {
+      "label": "Total number of Establishments",
+      "concept": "Employer Statistics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "EMP_N_F": {
+      "label": "Flag for Noise field for Total Mid-March Employees",
+      "concept": "Employer Statistics",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "PAYANN": {
+      "label": "Total Annual Payroll",
+      "concept": "Employer Statistics",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "EMPSZES": {
+      "label": "Employment size of establishment",
+      "concept": "Employer Statistics",
+      "required": "default displayed",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 14
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "groups": [
+    {
+      "name": "CB1700CBP",
+      "description": "All Sectors: County Business Patterns  by Legal Form of Organization and Employment Size Class for U.S., States, and Selected Geographies: 2017",
+      "variables": "https://api.census.gov/data/2017/cbp/groups/CB1700CBP.json"
+    }
+  ]
+}
