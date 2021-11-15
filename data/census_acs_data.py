@@ -5,10 +5,6 @@ collected from American Community Survey (ACS) data.
 This website provides:
 - a multitude of potential features to use in model
 """
-<<<<<<< HEAD
-
-=======
->>>>>>> 06bf306e7d91be6857659fc39f413d164ad74db7
 from collections import defaultdict
 import os
 import requests
@@ -242,8 +238,8 @@ def preprocess_acs():
     pass
 
 if __name__ == '__main__':
-    inspect_variables_across_years("DP02_0036E")
-    #inspect_variables_across_years("DP02_0036E", {"2019": "DP02_0037E"})
+    #inspect_variables_across_years("DP02_0036E")
+    inspect_variables_across_years("DP02_0036E", {"2019": "DP02_0037E"})
     #find_common_json(YEARS)
     #get_acs_variables_by_year()
     #collect_acs()
