@@ -59,50 +59,41 @@ def inspect_variables_across_years(code_2009, fix_dic={}):
         print()
 
 
-# def find_common_json(years): 
-#     groups = defaultdict(int)
+def find_common_json(years): 
+    groups = defaultdict(int)
+    variables = defaultdict(int)   
 
-#     for Year in years:
-#         groups_json = json.load(open(F'./tmp/{Year}/groups.json')) 
-#         for elem in groups_json['groups']:
-#             groups[elem['name']] += 1
+    for Year in years:
+        groups_json = json.load(open(F'./tmp/{Year}/groups.json')) 
+        for elem in groups_json['groups']:
+            groups[elem['name']] += 1
 
-#     ret_groups = [k for k, v in groups.items() if v == len(years)]
-#     print("groups reduced from:", len(groups), "to:", len(ret_groups))
+    ret_groups = [k for k, v in groups.items() if v == len(years)]
+    print("groups reduced from:", len(groups), "to:", len(ret_groups))
 
 
-#     label2keys = {}
+    for Year in years:
+        variables_json = json.load(open(F'./tmp/{Year}/variables.json'))['variables']
+        for var in variables_json.keys():
+            if var not in ['for', 'in', 'ucgid']:
+                variables[var] += 1
 
-#     for Year in years:
-#         variables_json = json.load(open(F'./tmp/{Year}/variables.json'))['variables']
-#         for k, v in variables_json.items():
-#             if k not in ['for', 'in', 'ucgid']:
-#                 label = v["label"]
-#                 label2keys[label] = label2keys.get(label, []) + [k]
+    ret_variables = [k for k, v in variables.items() if v == len(years)]
+    print("variables reduced from:", len(variables), "to:", len(ret_variables))
 
-#     ret_variables = {}
-#     for k, v in label2keys.items():
-#         if len(v) == len(years):
-#             ret_variables[k] = v
-#         else:
-#             print(len(v), "/", len(years))
+    groups_json = json.load(open(F'./tmp/2019/groups.json'))['groups']
+    variables_json = json.load(open(F'./tmp/2019/variables.json'))['variables']
 
-#     print("variables reduced from:", len(label2keys), "to:", len(ret_variables))
+    groups_dict = {}
+    variables_dict = {}
+    for g in groups_json:
+        if g['name'] in ret_groups:
+            groups_dict[g['name']] = g
+    for v in ret_variables:
+        variables_dict[v] = variables_json[v]
 
-#     groups_json = json.load(open(F'./tmp/2019/groups.json'))['groups']
-#     #variables_json = json.load(open(F'./tmp/2019/variables.json'))['variables']
-
-#     groups_dict = {}
-#     #variables_dict = {}
-#     for g in groups_json:
-#         if g['name'] in ret_groups:
-#             groups_dict[g['name']] = g
-#     #for v in ret_variables:
-#     #    variables_dict[v] = variables_json[v]
-
-#     json.dump(groups_dict, open('./tmp/groups.json', 'w'))
-#     #json.dump(variables_dict, open('./tmp/variables.json', 'w'))
-#     json.dump(ret_variables, open('./tmp/labels_to_variables.json', 'w'))
+    json.dump(groups_dict, open('./tmp/groups.json', 'w'))
+    json.dump(variables_dict, open('./tmp/variables.json', 'w'))
 
 def get_acs_variables_by_year():
     """
