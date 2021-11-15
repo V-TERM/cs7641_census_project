@@ -1,0 +1,489 @@
+{
+  "variables": {
+    "for": {
+      "label": "Census API FIPS 'for' clause",
+      "concept": "Census API Geography Specification",
+      "predicateType": "fips-for",
+      "group": "N/A",
+      "limit": 0,
+      "predicateOnly": true
+    },
+    "in": {
+      "label": "Census API FIPS 'in' clause",
+      "concept": "Census API Geography Specification",
+      "predicateType": "fips-in",
+      "group": "N/A",
+      "limit": 0,
+      "predicateOnly": true
+    },
+    "METRO1": {
+      "label": "Metropolitan statistical area code of reference geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMDIFFCTY_M": {
+      "label": "Movers from different county, same state margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TODIFFCTY_M": {
+      "label": "Movers to different county, same state margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "STATE1": {
+      "label": "FIPS State code of reference geography",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "METRO2": {
+      "label": "Metropolitan statistical area code of second geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "STATE2": {
+      "label": "State code/world region code of second geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MOVEDNET_M": {
+      "label": "Total net migration margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "STATE1_NAME": {
+      "label": "FIPS State name of reference geography",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMELSEWHEREUSPR_M": {
+      "label": "Movers from outside metro area in the United States or Puerto Rico margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TODIFFMETRO_M": {
+      "label": "Movers to different metro area margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "POP1YR_M": {
+      "label": "Population 1 year and over margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "SUMLEV2": {
+      "label": "Geographic summary level of second geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MOVEDIN": {
+      "label": "Total inbound migration to reference geography from second geography (flow statistic)",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "COUNTY1_NAME": {
+      "label": "FIPS county name of reference geography",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "HSGP": {
+      "label": "Hispanic Origin",
+      "concept": "Estimate Variable",
+      "required": "default displayed",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "POP1YRAGO_M": {
+      "label": "Population living in county 1 year ago margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMABROAD": {
+      "label": "Movers from abroad",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TOELSEWHEREUSPR_M": {
+      "label": "Movers to outside metro area in the United States or Puerto Rico margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "METRO1_NAME": {
+      "label": "Metropolitan statistical area name of reference geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MCD2": {
+      "label": "FIPS MCD code of second geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "SAMEMCD_M": {
+      "label": "Movers within same MCD margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TODIFFMETRO": {
+      "label": "Movers to different metro area (supplemental statistic)",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "SAMEMCD": {
+      "label": "Movers within same MCD",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMDIFFMETRO": {
+      "label": "Movers from different metro area in the United States or Puerto Rico(supplemental statistic)",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MCD1": {
+      "label": "FIPS MCD code of reference geography",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TODIFFCTY": {
+      "label": "Movers to different county, same state",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "COUNTY2_NAME": {
+      "label": "FIPS county name of second geography (blank for world region)",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "SAMEMETRO_M": {
+      "label": "Movers within same metro area margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MOVEDOUT_M": {
+      "label": "Total outbound migration margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "POP1YR": {
+      "label": "Population 1 year and over",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MCD2_NAME": {
+      "label": "MCD name of second geography (blank for world region)",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "GEOID1": {
+      "label": "Combined codes for the reference geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "GEOID2": {
+      "label": "Combined codes for the second geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMDIFFMCD": {
+      "label": "Movers from different MCD, same state",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "COUNTY1": {
+      "label": "FIPS county code of reference geography",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TOELSEWHEREUSPR": {
+      "label": "Movers to outside metro area in the United States or Puerto Rico (supplemental statistic)",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TOPUERTORICO_M": {
+      "label": "Movers to Puerto Rico margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "SEX": {
+      "label": "Sex",
+      "concept": "Estimate Variable",
+      "required": "default displayed",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MOVEDOUT": {
+      "label": "Total outbound migration",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TODIFFMCD": {
+      "label": "Movers to different MCD, same state",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TODIFFSTATE": {
+      "label": "Movers to different state",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMDIFFSTATE": {
+      "label": "Movers from different state",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "COUNTY2": {
+      "label": "FIPS county code of second geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MOVEDIN_M": {
+      "label": "Total inbound migration margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "SAMECOUNTY_M": {
+      "label": "Movers within same county margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FULL1_NAME": {
+      "label": "Full name of reference geography",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "METRO2_NAME": {
+      "label": "Metropolitan statistical area name of second geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "string",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TOPUERTORICO": {
+      "label": "Movers to Puerto Rico",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "NONMOVERS": {
+      "label": "Same residence 1 year ago (nonmovers)",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMDIFFMETRO_M": {
+      "label": "Movers from different metro area in the United States or Puerto Rico margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "AGE": {
+      "label": "Age Group",
+      "concept": "Estimate Variable",
+      "required": "default displayed",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "NONMOVERS_M": {
+      "label": "Same residence 1 year ago (nonmovers) margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMDIFFMCD_M": {
+      "label": "Movers from different MCD, same state margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMDIFFCTY": {
+      "label": "Movers from different county, same state",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TODIFFMCD_M": {
+      "label": "Movers to different MCD, same state margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "STATE2_NAME": {
+      "label": "State code/world region name of second geography",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMDIFFSTATE_M": {
+      "label": "Movers from different state margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "POP1YRAGO": {
+      "label": "Population living in county 1 year ago",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "SAMEMETRO": {
+      "label": "Movers within same metro area (supplemental statistic)",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "SUMLEV1": {
+      "label": "Geographic summary level of reference geography",
+      "concept": "Selectable Geographies",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MCD1_NAME": {
+      "label": "MCD name of reference geography",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FULL2_NAME": {
+      "label": "Full name of second geography",
+      "concept": "Selectable Geographies",
+      "group": "N/A",
+      "limit": 0
+    },
+    "RACE": {
+      "label": "Race",
+      "concept": "Estimate Variable",
+      "required": "default displayed",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMELSEWHEREUSPR": {
+      "label": "Movers from outside metro area in the United States or Puerto Rico (supplemental statistic)",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "MOVEDNET": {
+      "label": "Total net migration",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "FROMABROAD_M": {
+      "label": "Movers from abroad margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "TODIFFSTATE_M": {
+      "label": "Movers to different state margin of error",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    },
+    "SAMECOUNTY": {
+      "label": "Movers within same county",
+      "concept": "Estimate Variable",
+      "predicateType": "int",
+      "group": "N/A",
+      "limit": 0
+    }
+  }
+}

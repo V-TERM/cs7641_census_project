@@ -58,7 +58,7 @@ def get_acs_mf_variables(common_variables, y='2010'):
 
 	if y in YEARS[:6]:
 		main_df = None
-		for st in STATES[:10]:
+		for st in STATES:
 			print(f"Getting data for state {st}")
 			url = "https://api.census.gov/data/" + y + "/acs/flows?get=" + acs_mf_variables_string + "&for=county:*&in=state:" + st + "&key=" + API_key
 			response = requests.get(url)
@@ -117,7 +117,7 @@ def get_common_variables():
 			temp_.append(v)
 	common_variables = temp_
 		
-	remove_variables = ['for', 'in', 'STATE1_NAME', 'STATE2_NAME', 'COUNTY1', 'COUNTY1_NAME', 'COUNTY2', 'COUNTY2_NAME', 'MCD1', 'MCD1_NAME', 'MCD2', 'MCD2_NAME', 'SUMLEV1', 'SUMLEV2', 'FULL1_NAME', 'FULL2_NAME', 'TOPUERTORICO', 'FROMDIFFMCD', 'TODIFFMCD']
+	remove_variables = ['for', 'in', 'STATE1', 'STATE2', 'STATE1_NAME', 'STATE2_NAME', 'COUNTY1', 'COUNTY1_NAME', 'COUNTY2', 'COUNTY2_NAME', 'MCD1', 'MCD1_NAME', 'MCD2', 'MCD2_NAME', 'SUMLEV1', 'SUMLEV2', 'FULL1_NAME', 'FULL2_NAME', 'TOPUERTORICO', 'FROMDIFFMCD', 'TODIFFMCD', 'SAMEMCD']
 	for v in remove_variables:
 		if v in common_variables:
 			del common_variables[common_variables.index(v)]
@@ -128,6 +128,6 @@ def get_common_variables():
 if __name__ == '__main__':
     # pull_data_from_json()
 	common_variables = get_common_variables()
-	get_acs_mf_variables(common_variables, '2016')
-	# for y in YEARS:
-	# 	get_acs_mf_variables(common_variables, year=y)
+	# get_acs_mf_variables(common_variables, '2016')
+	for y in YEARS:
+		get_acs_mf_variables(common_variables, y)

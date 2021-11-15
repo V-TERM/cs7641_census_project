@@ -88,7 +88,7 @@ def get_common_variables():
 					if v not in variables.keys():
 						del common_variables[common_variables.index(v)]
 	
-	remove_variables = ['for', 'in', 'EMP_N', 'PAYQTR1_N', 'CSA', 'COUNTY', 'PAYANN_N']
+	remove_variables = ['for', 'in', 'EMP_N', 'PAYQTR1_N', 'CSA', 'COUNTY', 'PAYANN_N', 'GEO_ID']
 	for v in remove_variables:
 		del common_variables[common_variables.index(v)]
 	print(common_variables)
