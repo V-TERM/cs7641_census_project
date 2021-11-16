@@ -6,7 +6,7 @@ from atlas_data import collect_atlas, preprocess_atlas
 from census_acs_data import find_common_json, pull_Json, YEARS
 from census_acs_data import collect_acs, preprocess_acs
 from census_redistrict_data import collect_redistrict, preprocess_redistrict
-from data_preprocessing import preprocess_senate_results, preprocess_presidential_results
+from data_preprocess import preprocess_senate_results, preprocess_presidential_results
 from mit_data import collect_mit, preprocess_mit
 import os.path as osp
 import glob
