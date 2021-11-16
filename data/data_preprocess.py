@@ -2,9 +2,16 @@ import os
 import numpy as np
 import pandas as pd
 import json
+from tqdm import tqdm
 join = os.path.join
 
+def calc_pct_change(x):
 
+    for col in x:
+        if col not in ['year', 'state_name', 'cnty_name']:
+            x[col] = x[col].pct_change()
+    print(x.head())
+    return x
 
 class Presidential_Results(object):
     def __init__(self, root_dir='./tmp'):
@@ -15,17 +22,25 @@ class Presidential_Results(object):
     @property
     def counties(self):
         states = self.states
+        county_dict = dict([(s, []) for s in states])
+
         census_set = self._census_data[['cnty_name', 'state_name']].applymap(lambda x: x.strip() if isinstance(x, str) else x)
         census_set = census_set[census_set['state_name'].isin(states)]
-        census_set = census_set.rename(columns={'cnty_name': 'county', 'state_name': 'state'})
+        census_set = census_set.rename(columns={'cnty_name': 'county', 'state_name': 'state'}).to_numpy()
+        for county, state in census_set:
+            if county not in county_dict[state]:
+                county_dict[state].append(county)
+        
+        # county_set = self._county_block[['county', 'state']].applymap(lambda x: x.strip() if isinstance(x, str) else x)
+        # mask = census_set.isin(county_set)
+        # combined = census_set[mask]
 
-        county_set = self._county_block[['county', 'state']].applymap(lambda x: x.strip() if isinstance(x, str) else x)
-        mask = census_set.isin(county_set)
-        combined = census_set[mask]
+        county_tuples = []
+        for k, v in county_dict.items():
+            for _v in v:
+                county_tuples += [(_v, k)]
 
-        # print(census_set.head())
-        # print(census_set.shape, county_set.shape, combined.to_numpy().shape)
-        return [tuple(r) for r in census_set.to_numpy()]
+        return county_tuples
 
     @property
     def states(self):
@@ -48,8 +63,10 @@ class Presidential_Results(object):
         election_year_msk = election_results['year'].isin(census_year)
         election_results = election_results.drop(columns=['year']).to_numpy()
 
-        census_data = census_data.loc[census_data['year'].isin(years)]
+        census_data_mask = census_data['year'].isin(years)
+        # census_data = census_data.loc[census_data_mask]
         census_data = census_data.drop(columns=['state', 'county', 'state_fips', 'cnty_fips'])
+        census_data = census_data.groupby(pd.Grouper(key='cnty_name'), as_index=False).apply(calc_pct_change)
         
         
         winners = np.argmax(election_results, axis=1)
@@ -59,10 +76,17 @@ class Presidential_Results(object):
             last_winner = winners[i-1]
             current_winner = winners[i]
             label[i,:] = election_results[i, last_winner] - election_results[i-1, current_winner] 
+            
             if last_winner == current_winner:
-                label[i, :] = np.abs(label[i, :])            
+                # label[i, :] = np.abs(label[i, :])        
+                label[i, :] = 0
+            else:
+                label[i, : ] = 1
+
+
         label = label[election_year_msk]
-        census_data['label'] = label
+        census_data = census_data[census_data_mask]
+        census_data['label'] = label        
         return census_data
 
     def get_state(self, state):
@@ -103,14 +127,15 @@ def preprocess_presidential_results():
     _dataloader = Presidential_Results()
     county_df = None
     state_df = None
-    for county, state in _dataloader.counties:
+    for county, state in tqdm(_dataloader.counties, desc='county presidential preprocessing'):
         _df = _dataloader.get_county(county.strip(), state.strip())
         if county_df is None:
             county_df = _df
         else:
             county_df = pd.concat([county_df, _df])
+
     county_df.to_csv("./county_pres.csv")
-    for state in _dataloader.states:
+    for state in tqdm(_dataloader.states, desc='state presidential preprocessing'):
         _df = _dataloader.get_state(state.strip())
         if state_df is None:
             state_df = _df
@@ -120,19 +145,19 @@ def preprocess_presidential_results():
     return county_df, state_df
 
 
-    
 def preprocess_senate_results():
     _dataloader = Senate_Result()
     county_df = None
     state_df = None
-    for county, state in _dataloader.counties:
+    for county, state in tqdm(_dataloader.counties, desc='county senate preprocessing'):
         _df = _dataloader.get_county(county.strip(), state.strip())
         if county_df is None:
             county_df = _df
         else:
             county_df = pd.concat([county_df, _df])
     county_df.to_csv("./county_sen.csv")
-    for state in _dataloader.states:
+
+    for state in tqdm(_dataloader.states, desc='state senate preprocessing'):
         _df = _dataloader.get_state(state.strip())
         if state_df is None:
             state_df = _df
