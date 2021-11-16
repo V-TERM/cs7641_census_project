@@ -66,8 +66,6 @@ class Presidential_Results(object):
         years = np.unique(election_results['year'].to_numpy())
         election_results = election_results.groupby(pd.Grouper(key='year'), as_index=False).mean()
         election_year_msk = election_results['year'].isin(census_year)
-        print(election_results[election_year_msk])
-        print(np.count_nonzero(election_year_msk))
         election_results = election_results.drop(columns=['year']).to_numpy()
 
         census_data = census_data.groupby(pd.Grouper(key='year'), as_index=False).mean()
@@ -137,10 +135,10 @@ def preprocess_senate_results():
 
 if __name__ == "__main__":
     df1, df2 = preprocess_presidential_results()
-    df1.to_csv('./tmp/pres_county.csv')
-    df2.to_csv('./tmp/pres_state.csv')
+    df1.to_csv('./pres_county.csv')
+    df2.to_csv('./pres_state.csv')
 
     df1, df2 = preprocess_senate_results()
-    df1.to_csv('./tmp/sena_county.csv')
-    df2.to_csv('./tmp/sena_state.csv')
+    df1.to_csv('./sena_county.csv')
+    df2.to_csv('./sena_state.csv')
     
