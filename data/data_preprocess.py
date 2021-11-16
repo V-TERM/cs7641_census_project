@@ -14,17 +14,27 @@ class Presidential_Results(object):
         
     @property
     def counties(self):
-        return [tuple(r) for r in self._county_block[['county', 'state']].to_numpy()]
+        states = self.states
+        census_set = self._census_data[['cnty_name', 'state_name']]
+        census_set = census_set[census_set['state_name'].isin(states)]
+        census_set = census_set.rename(columns={'cnty_name': 'county', 'state_name': 'state'})        
+        county_set = self._county_block[['county', 'state']]
+        county_set = county_set[county_set['state'].isin(states)]
+        combined = county_set[county_set.isin(census_set)]
+        return [tuple(r) for r in combined.to_numpy()]
 
     @property
     def states(self):
-        return self._state_block['state'].to_list()
+        census_set = set(pd.unique(self._census_data['state_name']))
+        state_set = set(pd.unique(self._state_block['state']))
+        combined_set = census_set.intersection(state_set)
+        return list(combined_set)
 
     def get_county(self, cnty, state):
         election_results = self._county_block[cnty == self._county_block['county']]
-        election_results = election_results[state == self._county_block['state']][['cand1_percent', 'cand2_percent', 'cand3_percent', 'year']]        
+        election_results = election_results[state == election_results['state']][['cand1_percent', 'cand2_percent', 'cand3_percent', 'year']]        
         census_data = self._census_data[cnty == self._census_data['cnty_name']]
-        census_data = census_data[state == self._census_data['state_name']]
+        census_data = census_data[state == census_data['state_name']]
     
         census_year = census_data['year'].to_numpy()
         years = election_results['year'].to_numpy()
@@ -91,14 +101,14 @@ def preprocess_presidential_results():
     state_df = None
     for county, state in _dataloader.counties:
         _df = _dataloader.get_county(county, state)
-        if county_df == None:
+        if county_df is None:
             county_df = _df
         else:
             county_df.append(_df, ignore_index=True)
 
     for state in _dataloader.states:
         _df = _dataloader.get_state(state)
-        if state_df == None:
+        if state_df is None:
             state_df = _df
         else:
             state_df.append(_df, ignore_index=True)
@@ -112,14 +122,14 @@ def preprocess_senate_results():
     state_df = None
     for county, state in _dataloader.counties:
         _df = _dataloader.get_county(county, state)
-        if county_df == None:
+        if county_df is None:
             county_df = _df
         else:
             county_df.append(_df, ignore_index=True)
 
     for state in _dataloader.states:
         _df = _dataloader.get_state(state)
-        if state_df == None:
+        if state_df is None:
             state_df = _df
         else:
             state_df.append(_df, ignore_index=True)
