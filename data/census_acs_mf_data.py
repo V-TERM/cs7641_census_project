@@ -69,6 +69,8 @@ def get_acs_mf_variables(common_variables, y='2010'):
 				parsed = json.loads(response.text)
 				data = np.array(parsed)
 				df = pd.DataFrame(data=data[1:, 0:], columns=data[0, 0:])  # [values + 1st row as the column names]
+				df.insert(0, 'YEAR', y)
+
 				if main_df is None:
 					main_df = df
 				else:
@@ -86,6 +88,7 @@ def get_acs_mf_variables(common_variables, y='2010'):
 			parsed = json.loads(response.text)
 			data = np.array(parsed)
 			df = pd.DataFrame(data=data[1:, 0:], columns=data[0, 0:])  # [values + 1st row as the column names]
+			df.insert(0, 'YEAR', y)
 			df.to_csv(F'./tmp/{y}/acs_mf_variables.csv', index=False)
 		except Exception as e:
 			print(response.text)
@@ -117,7 +120,7 @@ def get_common_variables():
 			temp_.append(v)
 	common_variables = temp_
 		
-	remove_variables = ['for', 'in', 'STATE1', 'STATE2', 'STATE1_NAME', 'STATE2_NAME', 'COUNTY1', 'COUNTY1_NAME', 'COUNTY2', 'COUNTY2_NAME', 'MCD1', 'MCD1_NAME', 'MCD2', 'MCD2_NAME', 'SUMLEV1', 'SUMLEV2', 'FULL1_NAME', 'FULL2_NAME', 'TOPUERTORICO', 'FROMDIFFMCD', 'TODIFFMCD', 'SAMEMCD']
+	remove_variables = ['for', 'in', 'STATE1', 'STATE2', 'STATE1_NAME', 'STATE2_NAME', 'COUNTY1', 'COUNTY1_NAME', 'COUNTY2', 'COUNTY2_NAME', 'MCD1', 'MCD1_NAME', 'MCD2', 'MCD2_NAME', 'SUMLEV1', 'SUMLEV2', 'FULL1_NAME', 'FULL2_NAME', 'TOPUERTORICO', 'FROMDIFFMCD', 'TODIFFMCD', 'SAMEMCD', 'GEOID1', 'GEOID2', 'SAMECOUNTY', 'NONMOVERS', 'MOVEDIN', 'MOVEDOUT', 'FROMDIFFCTY', 'TODIFFCTY']
 	for v in remove_variables:
 		if v in common_variables:
 			del common_variables[common_variables.index(v)]
@@ -125,8 +128,20 @@ def get_common_variables():
 
 	return common_variables
 
+def collapse_csv():
+	dfs = []
+	for year in range(2009, 2020):
+		filepath = "./tmp/" + str(year) + "/acs_mf_variables.csv"
+		dfs.append(pd.read_csv(filepath))
+	df = pd.concat(dfs)
+	df = df.sort_values(by=['YEAR', 'state', 'county'])
+
+	# combine rows of same county and state by adding the values
+	df = df.groupby(['YEAR', 'state', 'county']).sum().reset_index()
+	df.to_csv('./data/cbp_variables_by_year.csv', index=False)
+
 if __name__ == '__main__':
-    # pull_data_from_json()
+	# pull_data_from_json()
 	common_variables = get_common_variables()
 	# get_acs_mf_variables(common_variables, '2016')
 	for y in YEARS:
