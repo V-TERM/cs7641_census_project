@@ -285,7 +285,7 @@ def collect_acs(fips_range, api_key, outfile_index):
             df_a[k] = pd.concat(df_a[k], ignore_index=True)
         df = pd.concat([v for _, v in df_a.items()], axis=1)
 
-        df.columns = var_by_year[year] + \
+        df.columns = var_by_year["2009"] + \
             ["state", "county", "state_fips", "cnty_fips", "state_name", "cnty_name", "year"]
         df.to_csv('tmp/acs_data_{}_{}.csv'.format(outfile_index, year), index=False)
 
