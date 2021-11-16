@@ -5,14 +5,16 @@ collected from American Community Survey (ACS) data.
 This website provides:
 - a multitude of potential features to use in model
 """
-from collections import defaultdict
-import os
-import requests
+import copy
 import json
-import urllib.request
-import pandas as pd
-import numpy as np
+import os
 import sys
+import urllib.request
+from collections import defaultdict
+
+import numpy as np
+import pandas as pd
+import requests
 
 API_key1 = "f937f9f5dd00b893a8dff1bb3cd8936f6ba8e577"
 API_key2 = "1d9f93096f2227878a5548c8d104f4ffc6029c5f"
@@ -30,7 +32,8 @@ FIPS_TO_STATE = {'53': 'WA', '10': 'DE', '11': 'DC', '55': 'WI', '54': 'WV',
  '28': 'MS', '45': 'SC', '21': 'KY', '41': 'OR'}
 
 YEARS = [str(i) for i in range(2009, 2020)]  # 2009 to 2019
-ELEC_YEARS = ["2009", "2010", "2012", "2014", "2016", "2018", "2019"]
+# ELEC_YEARS = ["2009", "2010", "2012", "2014", "2016", "2018", "2019"]
+ELEC_YEARS = ["2019"]
 
 
 def pull_Json(Year):
@@ -222,12 +225,13 @@ def collect_acs(fips_range, api_key, outfile_index):
     with open('./us_county_fips.json', 'r') as f:
         fips_dict = json.load(f)
 
-    df_a = {}
+    main_df = {}
     for i in range(0, num_var, 50):
-        df_a[i] = []
+        main_df[i] = []
 
     for year in ELEC_YEARS:
     
+        df_a = copy.deepcopy(main_df)
         for code, cnty_name in fips_dict.items():
             state, cnty = code[:2], code[2:]
 
@@ -278,13 +282,13 @@ def collect_acs(fips_range, api_key, outfile_index):
             for k, v in df_yc.items():
                 df_a[k] = df_a[k] + v
 
-    for k in df_a.keys():
-        df_a[k] = pd.concat(df_a[k], ignore_index=True)
-    df = pd.concat([v for _, v in df_a.items()], axis=1)
+        for k in df_a.keys():
+            df_a[k] = pd.concat(df_a[k], ignore_index=True)
+        df = pd.concat([v for _, v in df_a.items()], axis=1)
 
-    df.columns = var_by_year["2009"] + \
-        ["state", "county", "state_fips", "cnty_fips", "state_name", "cnty_name", "year"]
-    df.to_csv('tmp/acs_data_{}.csv'.format(outfile_index), index=False)
+        df.columns = var_by_year[year] + \
+            ["state", "county", "state_fips", "cnty_fips", "state_name", "cnty_name", "year"]
+        df.to_csv('tmp/acs_data_{}_{}.csv'.format(outfile_index, year), index=False)
 
 def preprocess_acs():
     # TODO
