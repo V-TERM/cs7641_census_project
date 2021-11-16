@@ -19,9 +19,7 @@ The data is available in a CSV format, and we have included a script to download
 
 Every data record has a unique combination of these keys, and the year generally varies from 2009 to 2019 (inclusive), the time period under consideration for our project. The state and county are two designated numeric identifiers, and the census data is available for all states and all counties. 
 
-All the datasets combined, we collected a total of 183 features, on which we will run dimensionality reduction techniques to reduce it to a manageable number of features. 
-
-We downloaded the presidential and senatorial election data separately and matched the records with the census data by key.
+All the datasets combined, we collected a total of 183 features, on which we run PCA to reduce it to a manageable number of features. We also downloaded the presidential and senatorial election results data separately and matched the records with the census data by key.
 
 ## Methods
 
@@ -35,15 +33,57 @@ We downloaded the presidential and senatorial election data separately and match
 - **Regression**: Utilizing the most important features from the results of PCA, we aim to build a regression model [[7]](#7) to fit a N-dimensional model for our data. To avoid overfitting techniques such as lasso, ridge, or elastic regularization can be utilized to penalize highly complex models. 
 - **Deep learning**: We plan to train a deep learning neural network and simplify the problem to a classification task [[8]](#8), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning [[9]](#9), hyperparameter tuning [[10]](#10), batch training etc. to try and increase the accuracy of our model.
 
-## Potential results and discussion
+## Results and discussion
 
-Firstly, the results of PCA will reveal the most important features of the census data contributing to the outcome of an election. Time series analysis results will also reveal recurring patterns and demographic shifts, and what attribute changes most affect election results. Using this information, we can implement a robust deep learning model, taking these features as inputs and output the election result for each election cycle. 
+### Data collection and cleaning
+Data was handled using the following steps:
+- Download the data from the Census Bureau website
+- Clean the data
+  - Remove categorical features
+  - Remove linearly dependent features
+  - Average out missing values
+  - Normalize the data
+- Construct dataloaders
 
-Future works can contribute to locating the major factors which result in shift in the political environment.
+### Unsupervised learning (PCA for dimensionality reduction)
+
+We implemented PCA using the sklearn library, and the results of the analysis are shown in the following figure.
+
+<insert figure>
+
+From a total of 183 features, we reduced and retained 101 features, with 99% of the variance explained.
+
+### Supervised learning (Ensemble model)
+
+We decided to use an ensemble model for our main analysis, consisting of:
+- A regression model
+- A decision tree model
+- A deep learning model
 
 ## Video Proposal
 
 https://github.com/V-TERM/cs7641_census_project/blob/668bfdc1adaf488440158ca84231d255c03efdf6/Project_Proposal.mp4
+
+## Distribution of Work
+
+| Task | Team |
+|------|------|
+| Data download and preprocessing | All |
+| Unsupervised model | Monish, Eric, Vyshnavi |
+| Supervised model | Ramachandren, Tony |
+
+## Timeline
+
+| Date | Description |
+|------|-------------|
+| Oct 19 | Select datasets and attributes in census data to use; select preliminary model design. |
+| Oct 26 | Complete extraction of census dataset; begin writing preprocessing and PCA scripts. |
+| Nov 02 | Complete data preprocessing and PCA; begin training model and evaluating results. |
+| Nov 09 | Continue training and evaluation; work on improving methodology. |
+| Nov 16 | Midterm report due. Finalize results for report. |
+| Nov 23 | Continue training and evaluation; work on improving methodology. |
+| Nov 30 | Continue training and evaluation; work on improving methodology. |
+| Dec 07 | Final report due. Finalize results for report. |
           
 ## References
 <a id="1">[1]</a> United States Census. "Decennial Census P.L. 94-171 Redistricting Data." Retrieved from https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html.
