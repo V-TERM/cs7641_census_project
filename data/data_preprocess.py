@@ -6,11 +6,9 @@ from tqdm import tqdm
 join = os.path.join
 
 def calc_pct_change(x):
-
     for col in x:
         if col not in ['year', 'state_name', 'cnty_name']:
-            x[col] = x[col].pct_change()
-    print(x.head())
+            x[col] = x[col].pct_change()   
     return x
 
 class Presidential_Results(object):
@@ -64,7 +62,6 @@ class Presidential_Results(object):
         election_results = election_results.drop(columns=['year']).to_numpy()
 
         census_data_mask = census_data['year'].isin(years)
-        # census_data = census_data.loc[census_data_mask]
         census_data = census_data.drop(columns=['state', 'county', 'state_fips', 'cnty_fips'])
         census_data = census_data.groupby(pd.Grouper(key='cnty_name'), as_index=False).apply(calc_pct_change)
         
@@ -98,6 +95,7 @@ class Presidential_Results(object):
         election_year_msk = election_results['year'].isin(census_year)
         election_results = election_results.drop(columns=['year']).to_numpy()
 
+        census_data = census_data.groupby(pd.Grouper(key='state_name'), as_index=False).apply(calc_pct_change)      
         census_data = census_data.groupby(pd.Grouper(key='year'), as_index=False).mean()
         census_data = census_data.loc[census_data['year'].isin(years)]
         census_data = census_data.drop(columns=['state', 'county', 'state_fips', 'cnty_fips'])
