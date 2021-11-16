@@ -8,6 +8,7 @@ from census_acs_data import collect_acs, preprocess_acs
 from census_redistrict_data import collect_redistrict, preprocess_redistrict
 from mit_data import collect_mit, preprocess_mit
 import os.path as osp
+import glob
 
 
 class CensusProjectData(object):
@@ -23,15 +24,14 @@ class CensusProjectData(object):
         pass
     
     def collect_acs_data(self):
-        collect_acs()
-
-    def collect_acs_data(self):
         if not osp.isdir(osp.join(self.root_path, "2009")):
             for year in YEARS:
                 pull_Json(year)
             find_common_json(YEARS)
 
-        #collect_acs()
+        if not glob.glob(osp.join(self.root_path, "acs_data_*.csv")):
+            collect_acs()  # note: may run for 24+ hours
+        preprocess_acs()
 
     def collect_atlas_data(self):
         """Collect data from US Election Atlas, save to .csv."""

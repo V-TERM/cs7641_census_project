@@ -13,6 +13,7 @@ import urllib.request
 import pandas as pd
 import numpy as np
 import sys
+from utils import fill_missing_values_rfr
 
 API_key1 = "f937f9f5dd00b893a8dff1bb3cd8936f6ba8e577"
 API_key2 = "1d9f93096f2227878a5548c8d104f4ffc6029c5f"
@@ -286,24 +287,75 @@ def collect_acs(fips_range, api_key, outfile_index):
         ["state", "county", "state_fips", "cnty_fips", "state_name", "cnty_name", "year"]
     df.to_csv('tmp/acs_data_{}.csv'.format(outfile_index), index=False)
 
+def collect_acs():
+    collect_acs((1,56), API_key1, 0)
+
 def preprocess_acs():
-    # TODO
-    pass
+    
+    df = pd.read_csv("tmp/acs_data_0.csv", dtype=str)
+
+    print("Number of columns (initially):", len(df.columns))
+
+    non_nans = df.count()
+
+    # Get rid of columns with too many (X)s or -88...8s
+    badval_cols = []
+    for col in df.columns:
+        num_x = len(df[df[col] == '(X)'])
+        num_neg8s = len(df[df[col] == '-888888888'])
+        num_nans = len(df) - non_nans[col]
+        n = num_x + num_neg8s + num_nans
+        
+        if n >= 0.2 * len(df):
+            badval_cols += [col]
+
+    df = df.drop(columns=badval_cols)
+    print("Number of columns (after drop):", len(df.columns))
+
+    # Convert (X)s and -88...8s to null values
+    df = df.replace("(X)", np.nan)
+    df = df.replace("-888888888", np.nan)
+
+    # Use random forest regression to complete matrix
+    print("Running random forest regression...")
+    df[df.columns[:-7]] = df[df.columns[:-7]].apply(pd.to_numeric)
+    df[df.columns[:-7]] = fill_missing_values_rfr(df[df.columns[:-7]])
+    print("Finished random forest regression")
+
+    # Normalize certain columns
+    df["DP02_0036E"] /= df["DP05_0003E"]
+    df["DP02_0052E"] /= df["DP05_0001E"]
+    df["DP02_0058E"] /= df["DP05_0001E"]
+    df["DP02_0080E"] /= df["DP05_0001E"]
+    df["DP02_0085E"] /= df["DP05_0001E"]
+    df["DP03_0001E"] /= df["DP05_0001E"]
+    df["DP03_0026E"] /= df["DP05_0001E"]
+    df["DP03_0047E"] /= df["DP05_0001E"]
+    df["DP04_0001E"] /= df["DP05_0001E"]
+    df["DP04_0108E"] /= df["DP05_0001E"]
+    df["DP04_0115PE"] /= df["DP05_0001E"]
+    df["DP04_0134E"] /= df["DP05_0001E"]
+    df["DP05_0003E"] /= df["DP05_0001E"]
+
+    # Drop certain columns
+    df = df.drop(columns=["DP05_0065E"])
+
+    df.to_csv("./tmp/use_later_2.csv", index=False)
 
 if __name__ == '__main__':
     #find_common_json(YEARS)
     
-    which_key = int(sys.argv[1])
-    if which_key == 1:
-        fips_range, x, y = (0, 20), API_key1, 0
-    elif which_key == 2:
-        fips_range, x, y = (21, 32), API_key2, 1
-    elif which_key == 3:
-        fips_range, x, y = (33, 46), API_key3, 2
-    elif which_key == 4:
-        fips_range, x, y = (47, 56), API_key4, 3
-    print(fips_range, x, y)
-    collect_acs(fips_range, x, y)
+    #which_key = int(sys.argv[1])
+    #if which_key == 1:
+    #    fips_range, x, y = (0, 20), API_key1, 0
+    #elif which_key == 2:
+    #    fips_range, x, y = (21, 32), API_key2, 1
+    #elif which_key == 3:
+    #    fips_range, x, y = (33, 46), API_key3, 2
+    #elif which_key == 4:
+    #    fips_range, x, y = (47, 56), API_key4, 3
+    #print(fips_range, x, y)
+    #collect_acs(fips_range, x, y)
 
     # inspect = False
     # if inspect:
@@ -329,3 +381,4 @@ if __name__ == '__main__':
     #         inspect_variables_across_years(code_2009, fix_dic, False, True)
     # else:
     #     get_acs_variables_by_year()
+    preprocess_acs()
