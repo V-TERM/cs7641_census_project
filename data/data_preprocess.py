@@ -10,18 +10,22 @@ class Presidential_Results(object):
     def __init__(self, root_dir='./tmp'):
         self._county_block = pd.read_csv(join(root_dir, 'pres_cnty.csv'))
         self._state_block = pd.read_csv(join(root_dir, 'pres_state.csv'))
-        self._census_data = pd.read_csv(join(root_dir, 'acs_data.csv'))
+        self._census_data = pd.read_csv(join(root_dir, 'census_data.csv'))
         
     @property
     def counties(self):
         states = self.states
-        census_set = self._census_data[['cnty_name', 'state_name']]
+        census_set = self._census_data[['cnty_name', 'state_name']].applymap(lambda x: x.strip() if isinstance(x, str) else x)
         census_set = census_set[census_set['state_name'].isin(states)]
-        census_set = census_set.rename(columns={'cnty_name': 'county', 'state_name': 'state'})        
-        county_set = self._county_block[['county', 'state']]
-        county_set = county_set[county_set['state'].isin(states)]
-        combined = county_set[county_set.isin(census_set)]
-        return [tuple(r) for r in combined.to_numpy()]
+        census_set = census_set.rename(columns={'cnty_name': 'county', 'state_name': 'state'})
+
+        county_set = self._county_block[['county', 'state']].applymap(lambda x: x.strip() if isinstance(x, str) else x)
+        mask = census_set.isin(county_set)
+        combined = census_set[mask]
+
+        # print(census_set.head())
+        # print(census_set.shape, county_set.shape, combined.to_numpy().shape)
+        return [tuple(r) for r in census_set.to_numpy()]
 
     @property
     def states(self):
@@ -33,6 +37,8 @@ class Presidential_Results(object):
     def get_county(self, cnty, state):
         election_results = self._county_block[cnty == self._county_block['county']]
         election_results = election_results[state == election_results['state']][['cand1_percent', 'cand2_percent', 'cand3_percent', 'year']]        
+        election_results = election_results.groupby(pd.Grouper(key='year'), as_index=False).mean()
+
         census_data = self._census_data[cnty == self._census_data['cnty_name']]
         census_data = census_data[state == census_data['state_name']]
     
@@ -90,7 +96,7 @@ class Senate_Result(Presidential_Results):
     def __init__(self, root_dir='./tmp'):
         self._county_block = pd.read_csv(join(root_dir, 'sen_cnty.csv'))
         self._state_block = pd.read_csv(join(root_dir, 'sen_state.csv'))
-        self._census_data = pd.read_csv(join(root_dir, 'acs_data.csv'))
+        self._census_data = pd.read_csv(join(root_dir, 'census_data.csv'))
 
 
 def preprocess_presidential_results():
@@ -98,18 +104,19 @@ def preprocess_presidential_results():
     county_df = None
     state_df = None
     for county, state in _dataloader.counties:
-        _df = _dataloader.get_county(county, state)
+        _df = _dataloader.get_county(county.strip(), state.strip())
         if county_df is None:
             county_df = _df
         else:
-            county_df.append(_df, ignore_index=True)
-
+            county_df = pd.concat([county_df, _df])
+    county_df.to_csv("./county_pres.csv")
     for state in _dataloader.states:
-        _df = _dataloader.get_state(state)
+        _df = _dataloader.get_state(state.strip())
         if state_df is None:
             state_df = _df
         else:
-            state_df.append(_df, ignore_index=True)
+            state_df = pd.concat([state_df, _df])
+    state_df.to_csv("./state_pres.csv")
     return county_df, state_df
 
 
@@ -119,26 +126,22 @@ def preprocess_senate_results():
     county_df = None
     state_df = None
     for county, state in _dataloader.counties:
-        _df = _dataloader.get_county(county, state)
+        _df = _dataloader.get_county(county.strip(), state.strip())
         if county_df is None:
             county_df = _df
         else:
-            county_df.append(_df, ignore_index=True)
-
+            county_df = pd.concat([county_df, _df])
+    county_df.to_csv("./county_sen.csv")
     for state in _dataloader.states:
-        _df = _dataloader.get_state(state)
+        _df = _dataloader.get_state(state.strip())
         if state_df is None:
             state_df = _df
         else:
-            state_df.append(_df, ignore_index=True)
+            state_df = pd.concat([state_df, _df])
+    state_df.to_csv("./state_sen.csv")
     return county_df, state_df
 
 if __name__ == "__main__":
     df1, df2 = preprocess_presidential_results()
-    df1.to_csv('./pres_county.csv')
-    df2.to_csv('./pres_state.csv')
-
     df1, df2 = preprocess_senate_results()
-    df1.to_csv('./sena_county.csv')
-    df2.to_csv('./sena_state.csv')
     
