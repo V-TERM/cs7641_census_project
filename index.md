@@ -1,10 +1,27 @@
 ## Introduction
 
-In recent years, there has been a socio-political shift in rural and urban areas which has resulted in greater divides at the local and national level. Our project aims to model county, state and national level societal changes to give context as to the potential course of future elections, so that we can further discern the major factors that contribute to political divide.
+In recent years, there has been a socio-political shift in rural and urban areas which has resulted in greater divides at the local and national level. Our project aims to model county, state and national level societal changes to predict the potential course of future elections, so we can discern the major factors that contribute to political divide.
 
-## Problem Statement
+## Problem Definition
 
 Given new census data has become publicly available [[1]](https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html?fbclid=IwAR0jbjLLCO3PeyQxeD01TJPXtcY37r1n_hvP1jYTUU5_3TBF7ipo6oxzGrY), we want to understand the influence a demographics shift has on the political scene, and if forecasting the result [[2-4]](#4) can be potentially accomplished. The current state-of-the-art looks at a limited set of features included in the data. Our proposed solution will accommodate ACS and Census data to gain a deeper understanding of the context using a series of unsupervised and supervised techniques.
+
+## Data Collection
+The new census data constitutes of a large set of different datasets, each of which captures a different statistical measure. For this project, we have included features from the following datasets:
+- Census Bureau American Community Survey (ACS): 5-Year Estimates
+- Community Business Patterns (CBP)
+- ACS Migration Flows (AMF): 5-Year Estimates
+
+The data is available in a CSV format, and we have included a script to download and collate the data. The primary keys for each dataset are:
+- YEAR
+- STATE
+- COUNTY
+
+Every data record has a unique combination of these keys, and the year generally varies from 2009 to 2019 (inclusive), the time period under consideration for our project. The state and county are two designated numeric identifiers, and the census data is available for all states and all counties. 
+
+All the datasets combined, we collected a total of 183 features, on which we will run dimensionality reduction techniques to reduce it to a manageable number of features. 
+
+We downloaded the presidential and senatorial election data separately and matched the records with the census data by key.
 
 ## Methods
 
