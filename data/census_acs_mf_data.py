@@ -130,19 +130,21 @@ def get_common_variables():
 
 def collapse_csv():
 	dfs = []
-	for year in range(2009, 2020):
+	for year in range(2010, 2020):
 		filepath = "./tmp/" + str(year) + "/acs_mf_variables.csv"
 		dfs.append(pd.read_csv(filepath))
 	df = pd.concat(dfs)
+
+	# combine rows of same county and state by adding the values of MOVEDNET column
+	df = df.groupby(['YEAR', 'state', 'county']).agg({'MOVEDNET': 'sum', 'FROMABROAD': 'first', 'POP1YR': 'first', 'TODIFFSTATE': 'first', 'FROMDIFFSTATE': 'first', 'POP1YRAGO': 'first' }).reset_index()
 	df = df.sort_values(by=['YEAR', 'state', 'county'])
 
-	# combine rows of same county and state by adding the values
-	df = df.groupby(['YEAR', 'state', 'county']).sum().reset_index()
-	df.to_csv('./data/cbp_variables_by_year.csv', index=False)
+	df.to_csv('./data/acs_mf_variables_by_year.csv', index=False)
 
 if __name__ == '__main__':
 	# pull_data_from_json()
-	common_variables = get_common_variables()
+	# common_variables = get_common_variables()
 	# get_acs_mf_variables(common_variables, '2016')
-	for y in YEARS:
-		get_acs_mf_variables(common_variables, y)
+	# for y in YEARS:
+	# 	get_acs_mf_variables(common_variables, y)
+	collapse_csv()
