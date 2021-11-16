@@ -6,6 +6,7 @@ from atlas_data import collect_atlas, preprocess_atlas
 from census_acs_data import find_common_json, pull_Json, YEARS
 from census_acs_data import collect_acs, preprocess_acs
 from census_redistrict_data import collect_redistrict, preprocess_redistrict
+from data_preprocessing import preprocess_senate_results, preprocess_presidential_results
 from mit_data import collect_mit, preprocess_mit
 import os.path as osp
 import glob
@@ -18,10 +19,10 @@ class CensusProjectData(object):
         # Collect all data.
         self.collect_atlas_data()
         self.collect_acs_data()
-        pass
+        
 
         # Preprocess all data.
-        pass
+        self.preprocess_data()
     
     def collect_acs_data(self):
         if not osp.isdir(osp.join(self.root_path, "2009")):
@@ -47,6 +48,10 @@ class CensusProjectData(object):
             atlas_data[1].to_csv(sen_state, index=False)
             atlas_data[2].to_csv(pred_cnty, index=False)
             atlas_data[3].to_csv(sen_cnty, index=False)
+
+    def preprocess_data(self):
+        pres_county_df, pres_state_df = preprocess_presidential_results()
+        sen_county_df, sen_state_df = preprocess_senate_results()
 
 if __name__ == '__main__':
     cpd = CensusProjectData()

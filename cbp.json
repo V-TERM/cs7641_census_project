@@ -6,6 +6,67 @@
     "describedBy": "https://project-open-data.cio.gov/v1.1/schema/catalog.json",
     "dataset": [
         {
+            "c_vintage": 2009,
+            "c_dataset": [
+              "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2009/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2009/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2009/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2009/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2009/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2009/cbp/values.json",
+            "c_documentationLink": "http://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "2009 County Business Patterns: Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+              "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides economic data by industry at the U.S., State, County and Metropolitan Area levels. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. CBP provides statistics for businesses with paid employees for the U.S., Puerto Rico, and the Island Areas. Census Bureau staff identified a processing error that affects selected data from the 2014 County Business Patterns (CBP). As a result, we suppressed 2014 employment and payroll totals in the Health Care and Social Assistance sector (Sector 62) for the following geographies: U.S.; Michigan; Battle Creek, MI metro area; Calhoun County, MI; and the 3rd congressional district of Michigan. This processing error did not affect other sectors. While suppressed values can be derived by subtraction, we do not recommend using the derived values in any analyses.  The Census Bureau plans to release revised statistics at a later date.",
+            "distribution": [
+              {
+                "@type": "dcat:Distribution",
+                "accessURL": "https://api.census.gov/data/2009/cbp",
+                "description": "API endpoint",
+                "format": "API",
+                "mediaType": "application/json",
+                "title": "API endpoint"
+              }
+            ],
+            "contactPoint": {
+              "fn": "CBP Staff",
+              "hasEmail": "epcd.county.business.patterns@census.gov"
+            },
+            "identifier": "http://api.census.gov/data/id/CBP2009",
+            "keyword": [
+            ],
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/Public Domain",
+            "modified": "2017-02-22",
+            "programCode": [
+              "006:007"
+            ],
+            "references": [
+              "http://www.census.gov/developers/"
+            ],
+            "spatial": "United States",
+            "temporal": "2009/2009",
+            "publisher": {
+              "@type": "org:Organization",
+              "name": "U.S. Census Bureau",
+              "subOrganizationOf": {
+                   "@type": "org:Organization",
+                   "name": "U.S. Department Of Commerce",
+                   "subOrganizationOf": {
+                       "@type": "org:Organization",
+                       "name": "U.S. Government"
+                   }
+               }
+            }
+        },
+        {
             "c_vintage": 2010,
             "c_dataset": [
                 "cbp"
