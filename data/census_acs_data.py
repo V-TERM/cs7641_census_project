@@ -8,12 +8,15 @@ This website provides:
 import copy
 import json
 import os
+import os.path as osp
 import urllib.request
 from collections import defaultdict
 import numpy as np
 from utils import fill_missing_values_rfr
 import pandas as pd
 import requests
+import glob
+import sys
 
 API_key1 = "f937f9f5dd00b893a8dff1bb3cd8936f6ba8e577"
 API_key2 = "1d9f93096f2227878a5548c8d104f4ffc6029c5f"
@@ -288,13 +291,36 @@ def collect_acs(fips_range, api_key, outfile_index):
             ["state", "county", "state_fips", "cnty_fips", "state_name", "cnty_name", "year"]
         df.to_csv('tmp/acs_data_{}_{}.csv'.format(outfile_index, year), index=False)
 
-def collect_acs():
-    collect_acs((1,56), API_key1, 0)
+#def collect_acs():
+#    collect_acs((1,56), API_key1, 0)
 
-def preprocess_acs():
+def preprocess_acs(in_dir, outfile):
     
-    df = pd.read_csv("tmp/acs_data_0.csv", dtype=str)
+    cbp_df = pd.read_csv(osp.join(in_dir, "cbp_variables_by_year.csv"), dtype=str)
+    mf_df = pd.read_csv(osp.join(in_dir, "acs_mf_variables_by_year.csv"), dtype=str)
 
+    cbp_df = cbp_df.rename(columns={"YEAR": "year"})
+    mf_df = mf_df.rename(columns={"YEAR": "year"})
+
+    mf_df = mf_df[mf_df["year"].isin(["2009", "2010", "2012", "2014", "2016", "2018", "2019"])]
+
+    dfs = []
+    df_paths = glob.glob(osp.join(in_dir, "acs_data_*.csv"))
+    for path in df_paths:
+        dfs += [pd.read_csv(path, dtype=str)]
+    df = pd.concat(dfs, axis=0)
+
+    df = pd.merge(cbp_df, df, how='inner', on=['state', 'county', 'year'])
+
+    df_non2009 = pd.merge(mf_df, df, how='inner', on=['state', 'county', 'year'])  # non-2009
+
+    df_2009 = pd.merge(mf_df, df, how='right', on=['state', 'county', 'year'])  # 2009
+    df_2009 = df_2009[df_2009["year"] == "2009"]
+    print(len(df_2009), len(df_non2009))
+
+    df = pd.concat([df_2009, df_non2009], axis=0)
+
+    print("Number of data points:", len(df))
     print("Number of columns (initially):", len(df.columns))
 
     non_nans = df.count()
@@ -319,8 +345,8 @@ def preprocess_acs():
 
     # Use random forest regression to complete matrix
     print("Running random forest regression...")
-    df[df.columns[:-7]] = df[df.columns[:-7]].apply(pd.to_numeric)
-    df[df.columns[:-7]] = fill_missing_values_rfr(df[df.columns[:-7]])
+    df[df.columns[3:-4]] = df[df.columns[3:-4]].apply(pd.to_numeric)
+    df[df.columns[3:-4]] = fill_missing_values_rfr(df[df.columns[3:-4]])
     print("Finished random forest regression")
 
     # Normalize certain columns
@@ -337,11 +363,21 @@ def preprocess_acs():
     df["DP04_0115PE"] /= df["DP05_0001E"]
     df["DP04_0134E"] /= df["DP05_0001E"]
     df["DP05_0003E"] /= df["DP05_0001E"]
+    df["MOVEDNET"] /= df["DP05_0001E"]
+    df["FROMABROAD"] /= df["DP05_0001E"]
+    df["POP1YR"] /= df["DP05_0001E"]
+    df["TODIFFSTATE"] /= df["DP05_0001E"]
+    df["FROMDIFFSTATE"] /= df["DP05_0001E"]
+    df["POP1YRAGO"] /= df["DP05_0001E"]
+    df["PAYQTR1"] /= df["DP05_0001E"]
+    df["EMP"] /= df["DP05_0001E"]
+    df["ESTAB"] /= df["DP05_0001E"]
+    df["PAYANN"] /= df["DP05_0001E"]
 
     # Drop certain columns
     df = df.drop(columns=["DP05_0065E"])
 
-    df.to_csv("./tmp/use_later_2.csv", index=False)
+    df.to_csv(outfile, index=False)
 
 if __name__ == '__main__':
     #find_common_json(YEARS)
@@ -352,7 +388,7 @@ if __name__ == '__main__':
     #elif which_key == 2:
     #    fips_range, x, y = (21, 32), API_key2, 1
     #elif which_key == 3:
-    #    fips_range, x, y = (33, 46), API_key3, 2
+    #    fips_range, x, y = (33, 46), API_key1, 2
     #elif which_key == 4:
     #    fips_range, x, y = (47, 56), API_key4, 3
     #print(fips_range, x, y)
@@ -382,4 +418,4 @@ if __name__ == '__main__':
     #         inspect_variables_across_years(code_2009, fix_dic, False, True)
     # else:
     #     get_acs_variables_by_year()
-    preprocess_acs()
+    preprocess_acs("./tmp", "./tmp/census_data.csv")
