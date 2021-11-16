@@ -19,7 +19,7 @@ The data is available in a CSV format, and we have included a script to download
 
 Every data record has a unique combination of these keys, and the year generally varies from 2009 to 2019 (inclusive), the time period under consideration for our project. The state and county are two designated numeric identifiers, and the census data is available for all states and all counties. 
 
-All the datasets combined, we collected a total of 183 features, on which we run PCA to reduce it to a manageable number of features. We also downloaded the presidential and senatorial election results data separately and matched the records with the census data by key.
+All the datasets combined, we collected a total of 183 features. We also downloaded the presidential and senatorial election results data separately and matched the records with the census data by key.
 
 ## Methods
 
@@ -35,21 +35,18 @@ All the datasets combined, we collected a total of 183 features, on which we run
 
 ## Results and discussion
 
-### Data collection and cleaning
-Data was handled using the following steps:
-- Download the data from the Census Bureau website
-- Clean the data
-  - Remove categorical features
-  - Remove linearly dependent features
-  - Average out missing values
-  - Normalize the data
-- Construct dataloaders
+### Data handling
+- Downloaded the data from the Census Bureau website
+- Cleaned the data
+  - Removed categorical features
+  - Removed linearly dependent features
+  - Averaged out missing values
+  - Normalized the data
+- Constructed dataloaders
 
 ### Unsupervised learning (PCA for dimensionality reduction)
 
 We implemented PCA using the sklearn library, and the results of the analysis are shown in the following figure.
-
-<insert figure>
 
 From a total of 183 features, we reduced and retained 101 features, with 99% of the variance explained.
 
