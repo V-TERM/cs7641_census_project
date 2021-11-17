@@ -8,7 +8,7 @@ join = os.path.join
 def calc_pct_change(x):
     for col in x:
         if col not in ['year', 'state_name', 'cnty_name']:
-            x[col] = x[col].pct_change()   
+            x[col] = x[col].diff(periods=-1)   
     return x
 
 class Presidential_Results(object):
@@ -65,7 +65,7 @@ class Presidential_Results(object):
         census_data = census_data.drop(columns=['state', 'county', 'state_fips', 'cnty_fips'])
         census_data = census_data.groupby(pd.Grouper(key='cnty_name'), as_index=False).apply(calc_pct_change)
         
-        
+        # election_results = election_results[election_year_msk]
         winners = np.argmax(election_results, axis=1)
         label = np.zeros((election_results.shape[0], 1))
 
@@ -97,9 +97,10 @@ class Presidential_Results(object):
 
         census_data = census_data.groupby(pd.Grouper(key='state_name'), as_index=False).apply(calc_pct_change)      
         census_data = census_data.groupby(pd.Grouper(key='year'), as_index=False).mean()
-        census_data = census_data.loc[census_data['year'].isin(years)]
+        census_data_mask = census_data['year'].isin(years)
         census_data = census_data.drop(columns=['state', 'county', 'state_fips', 'cnty_fips'])
         
+        # election_results = election_results[election_year_msk]
         winners = np.argmax(election_results, axis=1)
         label = np.zeros((election_results.shape[0], 1))
         for i in range(1, election_results.shape[0]):
@@ -109,7 +110,8 @@ class Presidential_Results(object):
             if last_winner == current_winner:
                 label[i, :] = np.abs(label[i, :])   
 
-        label = label[election_year_msk]        
+        label = label[election_year_msk]    
+        census_data = census_data[census_data_mask]
         census_data['label'] = label
         census_data['state'] = state
         return census_data
