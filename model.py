@@ -1,15 +1,78 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import GridSearchCV
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.svm import SVR
-from sklearn.ensemble import VotingRegressor
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.svm import SVC, SVR
+from sklearn.ensemble import VotingClassifier, VotingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import *
 
 
-def run_models(filename):
+def run_models_classifier(filename):
+    df = pd.read_csv(filename)
+    df = df.dropna(axis=0)
+
+    X = df.drop(columns=['Unnamed: 0', 'year', 'label', 'state',
+        'state_name', 'cnty_name'], errors='ignore').to_numpy()
+    y = df['label'].to_numpy()
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+    print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
+
+    def print_results(model_name, y_test, y_pred):
+        print(model_name, "results:")
+        print("Accuracy:", accuracy_score(y_test, y_pred))
+        print("F1 score:", f1_score(y_test, y_pred))
+        print("Confusion matrix:")
+        print(confusion_matrix(y_test, y_pred))
+        print("Cross entropy loss:", log_loss(y_test, y_pred))
+
+    knc = KNeighborsClassifier(n_neighbors=5)
+    params_knc = {'n_neighbors': np.arange(1, 25)}
+    knc_gs = GridSearchCV(knc, params_knc, cv=5)
+    knc_gs.fit(X_train, y_train)
+
+    knc_best = knc_gs.best_estimator_
+    print("Best KNC params:")
+    print(knc_gs.best_params_)
+
+    y_pred = knc_best.predict(X_test)
+    print_results("KNC", y_test, y_pred)
+    
+    rfc = RandomForestClassifier()
+    params_rfc = {'n_estimators': [100, 200, 400]}
+    rfc_gs = GridSearchCV(rfc, params_rfc, cv=5)
+    rfc_gs.fit(X_train, y_train)
+
+    rfc_best = rfc_gs.best_estimator_
+    print("Best RFC params:")
+    print(rfc_gs.best_params_)
+
+    y_pred = rfc_best.predict(X_test)
+    print_results("RFC", y_test, y_pred)
+
+    svc = SVC(C=1.0)
+    params_svc = {'C': [0.01, 0.1, 1.0, 10]}
+    svc_gs = GridSearchCV(svc, params_svc, cv=5)
+    svc_gs.fit(X_train, y_train)
+
+    svc_best = svc_gs.best_estimator_
+    print("Best SVC params:")
+    print(svc_gs.best_params_)
+
+    y_pred = svc_best.predict(X_test)
+    print_results("SVC", y_test, y_pred)
+
+    estimators=[('knc', knc_best), ('rfc', rfc_best), ('svc', svc_best)]
+    ensemble = VotingClassifier(estimators)
+    ensemble.fit(X_train, y_train)
+
+    y_pred = ensemble.predict(X_test)
+    print_results("Ensemble", y_test, y_pred)
+
+def run_models_regressor(filename):
     df = pd.read_csv(filename)
     #df.head()
 
@@ -24,10 +87,7 @@ def run_models(filename):
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-    print(X_train.shape)
-    print(X_test.shape)
-    print(y_train.shape)
-    print(y_test.shape)
+    print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 
     knr = KNeighborsRegressor(n_neighbors=5)
     params_knr = {'n_neighbors': np.arange(1, 25)}
@@ -64,15 +124,12 @@ def run_models(filename):
     ensemble = VotingRegressor(estimators)
 
     ensemble.fit(X_train, y_train)
-    mean_accuracy = ensemble.score(X_test, y_test)
-    print("Mean accuracy of ensemble:", mean_accuracy)
+    r2 = ensemble.score(X_test, y_test)
+    print("R^2 of ensemble:", r2)
 
     y_pred = ensemble.predict(X_test)
     print("MAE", mean_absolute_error(y_test, y_pred))
     print("MSE", mean_squared_error(y_test, y_pred))
 
 if __name__ == '__main__':
-    #run_models("./data/state_pres.csv")
-    #run_models("./data/state_sen.csv")
-    run_models("./data/county_pres.csv")
-    #run_models("./data/county_sen.csv")
+    run_models_classifier("./data/county_pres_pca.csv")
