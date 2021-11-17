@@ -114,7 +114,7 @@ def collapse_csv():
 
 	# combine rows of same county and state by adding the values
 	df = df.groupby(['YEAR', 'state', 'county']).sum().reset_index()
-	df.to_csv('./data/cbp_variables_by_year.csv', index=False)
+	df.to_csv('./tmp/cbp_variables_by_year.csv', index=False)
 
 if __name__ == '__main__':
 	# pull_data_from_json()

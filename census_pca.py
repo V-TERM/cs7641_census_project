@@ -45,7 +45,7 @@ class CensusPCA():
 		self.k = k
 		self.X_min = X[:, :k]
 
-	def write_to_file(self, outfile="./data/tmp/census_data_pca.csv"):
+	def write_to_file(self, outfile="./tmp/census_data_pca.csv"):
 		df = pd.DataFrame(self.X_min,
 						  columns=pd.RangeIndex(self.X_min.shape[1]))
 		df = pd.concat([df, self.other_cols], axis=1)
@@ -64,7 +64,7 @@ class CensusPCA():
 
 if __name__ == '__main__':
 	pca = CensusPCA()
-	pca.import_data("./data/state_pres.csv")
+	pca.import_data("./tmp/state_pres.csv")
 	pca.run_pca()
-	pca.write_to_file("./data/state_pres_pca.csv")
-	pca.visualize_to_file("./data/state_pres_pca.png")
+	pca.write_to_file("./tmp/state_pres_pca.csv")
+	pca.visualize_to_file("./tmp/state_pres_pca.png")

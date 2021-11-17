@@ -139,7 +139,7 @@ def collapse_csv():
 	df = df.groupby(['YEAR', 'state', 'county']).agg({'MOVEDNET': 'sum', 'FROMABROAD': 'first', 'POP1YR': 'first', 'TODIFFSTATE': 'first', 'FROMDIFFSTATE': 'first', 'POP1YRAGO': 'first' }).reset_index()
 	df = df.sort_values(by=['YEAR', 'state', 'county'])
 
-	df.to_csv('./data/acs_mf_variables_by_year.csv', index=False)
+	df.to_csv('./tmp/acs_mf_variables_by_year.csv', index=False)
 
 if __name__ == '__main__':
 	# pull_data_from_json()
