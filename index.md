@@ -1,69 +1,110 @@
 ## Introduction
 
-In recent years, there has been a socio-political shift in rural and urban areas which has resulted in greater divides at the local and national level. Our project aims to model county, state and national level societal changes to predict the potential course of future elections, so we can discern the major factors that contribute to political divide.
+In recent years, there has been a socio-political shift in rural and urban areas which has resulted in greater divides at the local and national level. Our project aims to model economic, demographic, and social changes at a county level to predict the potential course of future elections, so we can discern the major factors that contribute to political divide.
 
 ## Problem Definition
 
-Given new census data has become publicly available [[1]](https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html?fbclid=IwAR0jbjLLCO3PeyQxeD01TJPXtcY37r1n_hvP1jYTUU5_3TBF7ipo6oxzGrY), we want to understand the influence a demographics shift has on the political scene, and if forecasting the result [[2-4]](#4) can be potentially accomplished. The current state-of-the-art looks at a limited set of features included in the data. Our proposed solution will accommodate ACS and Census data to gain a deeper understanding of the context using a series of unsupervised and supervised techniques.
+Given data collected by the US Census Bureau [[1]](https://data.census.gov/cedsci/), we want to understand the influence that shifts in demographic, economic, and social factors have on the political scene, and if forecasting future outcomes [[2-4]](#4) can be accomplished using a machine learning model. The current state-of-the-art looks at a relatively limited set of features, leaving many potentially useful variables unexplored. Our proposed solution will accommodate a large number of Census data attributes to gain a deeper understanding of the context using a series of unsupervised and supervised techniques.
 
-## Data Collection
-The new census data constitutes of a large set of different datasets, each of which captures a different statistical measure. For this project, we have included features from the following datasets:
-- Census Bureau American Community Survey (ACS): 5-Year Estimates
-- Community Business Patterns (CBP)
-- ACS Migration Flows (AMF): 5-Year Estimates
+We define our supervised learning task as a binary classification task, in which we predict whether or not the winning party for a particular county (Democrat or Republican) flips for a particular election. We define a positive as a "flip".
 
-Data in the form of 5-Year Estimates consist of data for the current year and projections for the next 4 years. We were able to extract data individually for each year, and then combine them into a single dataset.
+## Data
 
-The data is available in a CSV format, and we have included a script to download and collate the data. The primary keys for each dataset are:
+### Census Data
+Our dataset consists of a large set of different datasets, each of which captures a different statistical measure. For this project, we have included features from the following datasets:
+- Census Bureau American Community Survey (ACS): 5-Year Estimates [[5]](https://www.census.gov/data/developers/data-sets/acs-5year.html)
+- Community Business Patterns (CBP) [[6]](https://www.census.gov/programs-surveys/cbp.html)
+- ACS Migration Flows (AMF): 5-Year Estimates [[7]](https://www.census.gov/data/developers/data-sets/acs-migration-flows.html)
+
+The ACS covers a broad range of variables regarding social, economic, demographic, and housing information across geographical areas in the United States. On an annual basis, comprehensive 5-Year Estimates are released for the five years leading up to that year. We utilize 175 unique variables from their Data Profile tables:
+- 21 social variables (related to education, school enrollment, and fertility rate)
+- 45 economic variables (related to employment, income, occupation, industry, and poverty)
+- 32 housing variables (related to occupancy, housing value, and owner/renter costs)
+- 67 demographic variables (related to race, ethnicity, nationality, gender, and age)
+
+CBP provides subnational economic data by industry on an annual basis. From this dataset, we get four variables: first quarter payroll, annual payroll, number of employees, and number of establishments.
+
+AMF provides period estimates that measure change in residence. From this dataset, we get six variables.
+
+We used a series of Census API keys to pull data for each of the Census datasets into a CSV format, and we have included a script to download and collate the data. The primary keys for each dataset are:
 - YEAR
 - STATE
 - COUNTY
 
 Every data record has a unique combination of these keys, and the year generally varies from 2009 to 2019 (inclusive), the time range of data we were able to obtain from the census website. The state and county are two designated numeric identifiers, known as FIPS codes. A state is denoted by two digits, and a county is denoted by three digits, together forming a unique five-digit FIPS code. The census data is available for all counties in all states.
 
-All the datasets combined, we collected a total of 200 features. We also downloaded the presidential and senatorial election results data separately and matched the records with the census data by key.
+### Election Data
+We pull county-level data for presidential and senatorial races for the years within the range of available Census data; specifically, the 2012 and 2016 presidential elections, and all senatorial races from 2010 to 2018. This data is publicly available from Dave Leip's Atlas of U.S. Elections [[8]]. We implemented a script that utilizes Selenium, a browser automator software, to automatically browse pages on the site using URL and use HTML information to pull the data into .csv files. The results, available for each county for a given election year, serve as the basis for our labels. 
+
+### Data handling
+- We removed categorical features, as encoding categorical features would have increased the dimensionality of the data.
+- We removed linearly dependent features, as they would not be useful for our model.
+- We used Random Forest Regression to impute features with missing data. If a feature had more than 20% missing data, it was removed. By doing this, we reduced the dimensionality of our data from an original amount of 200 to 183 features, out of which only 3 needed to be imputed.
+- We normalized the data, to reduce the variance of the data.
+- We constructed dataloaders to handle all preprocessing.
+- Finally, we merged the election results with the Census Data using an inner join on the aforementioned three primary keys.
+
+### Final dataset statistics
+
+|                   | Data points (county/state/year) | Positive labels | Non-positive labels |
+|-------------------|-------------|-----------------|---------------------|
+| Presidential data | 5856        | 510             | 5346                |
+| Senatorial data   | 9334        | 1906            | 7427                |
 
 ## Methods
 
-### Unsupervised learning
-
-- **Feature engineering**: After preprocessing the data, we implemented Principal Component Analysis (PCA) [[5]](#5) for identifying the most important principal components, retaining 99% variance. Using this, we reduced the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results.
-- **Time series analysis**: Given that our data contains 20-30 years of reliable census data, we intend to use ARIMA [[6]](#6) to visualize the time series and analyze the trends of every feature, to find the optimal parameters to build the model. We also plan to investigate _temporal pattern matching_ to identify recurring features and tendencies, thereby examining which features have the greatest influence on the outcome.
+### Unsupervised learning (PCA for dimensionality reduction)
+After preprocessing the data, we implemented Principal Component Analysis (PCA) for identifying the most important principal components, and aimed to retain 99% variance. By using PCA, we reduced the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results. We implemented PCA using the scikit-learn library. Results and selected values of k are shown in plots in the "Results and discussion" section.
 
 ### Supervised learning
+For classification, we utilized three scikit-learn models, along with an ensemble model that combines the three. The models are:
+- AdaBoostClassifier
+- RandomForestClassifier
+- BaggingClassifier
 
-- **Regression**: Utilizing the most important features from the results of PCA, we built a regression model [[7]](#7) to fit a N-dimensional model for our data. 
-- **Deep learning**: We plan to train a deep learning neural network and simplify the problem to a classification task [[8]](#8), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning [[9]](#9), hyperparameter tuning [[10]](#10), batch training etc. to try and increase the accuracy of our model.
+Also, in order to address the large class imbalance in our data, we utilized a SMOTE [[9]](https://machinelearningmastery.com/smote-oversampling-for-imbalanced-classification/) over-sampler to create synthetic data of the minority class in order to create a class balance of 1 in our training data. In addition, we use an undersampler to reduce the number of samples in the majority class. Both are from the Python library `imblearn`. 
 
 ## Results and discussion
 
-### Data handling
+### PCA
 
-- Downloaded the data from the Census Bureau website
-- Cleaned the data
-  - Removed categorical features, as encoding categorical features would increase the dimensionality of the data.
-  - Removed linearly dependent features, as they would not be useful for our model.
-  - Used Random Forest Regression to fit all features with no missing data, and then individually transform the remaining features with missing data. If a feature had more than 20% missing data, it was removed. By doing this, we reduced the dimensionality of our data from 200 to 183 features, out of which only 3 needed to be imputed.
-  - Normalized the data, to reduce the variance of the data.
- - Constructed dataloaders.
-
-### Unsupervised learning (PCA for dimensionality reduction)
-
-We implemented PCA using the scikit-learn library, and the results of the analysis are shown in the following figures.
-
-![PCA results for presidential election results](/docs/assets/pca_presidential_elec.png)
-
-![PCA results for senatorial election results](/docs/assets/pca_senatorial_elec.png)
-
-From a total of 183 features, we retained 101 features, with 99% of the variance explained.
+PCA results: presidential data  |  PCA results: senatorial data
+:-------------------------:|:-------------------------:
+![PCA results for presidential election results](/docs/assets/pca_presidential_elec.png) | ![PCA results for senatorial election results](/docs/assets/pca_senatorial_elec.png)
 
 ### Supervised learning (Ensemble model)
 
-We decided to use an ensemble model for our main analysis, consisting of:
-- A K-Nearest Neighbors (KNN) model
-- A random forest model
-- A support vector machine (SVM) model
+This table shows the F1 scores of each model for each dataset:
 
+|                   | AdaBoost | Random Forest | Bagging | Ensemble |
+|-------------------|----------|---------------|---------|----------|
+| Presidential data | 0.298    | 0.226         | 0.232   | 0.225    |
+| Senatatorial data | 0.175    | 0.093         | 0.059   | 0.047    |
+
+The following are confusion matrices that correspond to the models with the best F1-scores for each dataset:
+
+<table>
+<tr><th>AdaBoost for Presidential</th><th>AdaBoost for Senatorial</th></tr>
+<tr><td>
+
+|          | Non-flip | Flip |
+|----------|----------|------|
+| Non-flip | 1296     | 209  |
+| Flip     | 262      | 100  |
+
+</td><td>
+
+|          | Non-flip | Flip |
+|----------|----------|------|
+| Non-flip | 1047     | 5    |
+| Flip     | 117      | 3    |
+
+</td></tr> </table>
+
+From our preliminary results, we observe that our model faces the following challenges:
+- Curse of dimensionality. We use either 117 or 118 PCA-created columns as our features, which we believe may still be too many to make distances between points in Euclidean space be meaningful.
+- Lack of real-world samples in the minority class. In real-world elections, only a small handful of elections see power transferred from one party to another. This creates a large, but natural, imbalance in the dataset that we observe even SMOTE can only partially correct.
+- Construction of the labels. By defining our label as a binary classification, we cannot fully grasp changes with high enough granularity to make changes in the input features meaningful. It could also be useful to consider this task from a regression perspective instead of purely a classification one.
 
 ## Video Proposal
 
@@ -91,7 +132,7 @@ https://github.com/V-TERM/cs7641_census_project/blob/668bfdc1adaf488440158ca8423
 | Dec 07 | Final report due. Finalize results for report. |
           
 ## References
-<a id="1">[1]</a> United States Census. "Decennial Census P.L. 94-171 Redistricting Data." Retrieved from https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html.
+<a id="1">[1]</a> United States Census. "Explore Census Data." Retrieved from https://data.census.gov/cedsci/.
 
 <a id="2">[2]</a> 
 Caballero, Michael. "Predicting the 2020 US Presidential Election with Twitter." arXiv preprint arXiv:2107.09640 (2021). Retrieved from https://arxiv.org/abs/2107.09640.
@@ -103,19 +144,16 @@ Colladon, Andrea Fronzetti. "Forecasting election results by studying brand impo
 Sethi, Rajiv, et al. "Models, Markets, and the Forecasting of Elections." arXiv preprint arXiv:2102.04936 (2021). Retrieved from https://arxiv.org/abs/2102.04936.
 
 <a id="5">[5]</a>
-Jolliffe, Ian T., and Jorge Cadima. "Principal component analysis: a review and recent developments." Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences 374.2065 (2016): 20150202.
+United States Census. "American Community Survey 5-Year Data (2009-2019)." Retrieved from https://www.census.gov/data/developers/data-sets/acs-5year.html.
 
 <a id="6">[6]</a>
-Nelson, Brian K. "Time series analysis using autoregressive integrated moving average (ARIMA) models." Academic emergency medicine 5.7 (1998): 739-744.
+United States Census. "County Business Patterns (CBP)." Retrieved from https://www.census.gov/programs-surveys/cbp.html.
 
 <a id="7">[7]</a>
-Uysal, Ilhan, and H. Altay Güvenir. "An overview of regression techniques for knowledge discovery." The Knowledge Engineering Review 14.4 (1999): 319-340.
+United States Census. "American Community Survey Migration Flows." Retrieved from https://www.census.gov/data/developers/data-sets/acs-migration-flows.html.
 
 <a id="8">[8]</a>
-Pollard, Rebecca D., Sara M. Pollard, and Scott Streit. "Predicting Propensity to Vote with Machine Learning." arXiv preprint arXiv:2102.01535 (2021). Retrieved from https://arxiv.org/abs/2102.01535.
+Dave Leip's Atlas of U.S. Elections. "United States Presidential Election Results." Retreived from https://uselectionatlas.org/RESULTS/.
 
 <a id="9">[9]</a>
-Torrey, Lisa, and Jude Shavlik. "Transfer learning." Handbook of research on machine learning applications and trends: algorithms, methods, and techniques. IGI global, 2010. 242-264.
-
-<a id="10">[10]</a>
-Claesen, Marc, et al. "Hyperparameter tuning in python using optunity." Proceedings of the international workshop on technical computing for machine learning and mathematical engineering. Vol. 1. No. 3. 2014.
+Brownlee, Jason. "SMOTE for Imbalanced Classification with Python." Retrieved from https://machinelearningmastery.com/smote-oversampling-for-imbalanced-classification/
