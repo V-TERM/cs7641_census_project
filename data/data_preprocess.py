@@ -108,7 +108,9 @@ class Presidential_Results(object):
             current_winner = winners[i]
             label[i,:] = election_results[i, last_winner] - election_results[i-1, current_winner] 
             if last_winner == current_winner:
-                label[i, :] = np.abs(label[i, :])   
+                label[i, :] = 0
+            else:
+                label[i, :] = 1
 
         label = label[election_year_msk]    
         census_data = census_data[census_data_mask]
