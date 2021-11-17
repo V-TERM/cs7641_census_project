@@ -12,50 +12,54 @@ The new census data constitutes of a large set of different datasets, each of wh
 - Community Business Patterns (CBP)
 - ACS Migration Flows (AMF): 5-Year Estimates
 
+Data in the form of 5-Year Estimates consist of data for the current year and projections for the next 4 years. We were able to extract data individually for each year, and then combine them into a single dataset.
+
 The data is available in a CSV format, and we have included a script to download and collate the data. The primary keys for each dataset are:
 - YEAR
 - STATE
 - COUNTY
 
-Every data record has a unique combination of these keys, and the year generally varies from 2009 to 2019 (inclusive), the time period under consideration for our project. The state and county are two designated numeric identifiers, and the census data is available for all states and all counties. 
+Every data record has a unique combination of these keys, and the year generally varies from 2009 to 2019 (inclusive), the time range of data we were able to obtain from the census website. The state and county are two designated numeric identifiers, known as FIPS codes. A state is denoted by two digits, and a county is denoted by three digits, together forming a unique five-digit FIPS code. The census data is available for all states and all counties.
 
-All the datasets combined, we collected a total of 183 features. We also downloaded the presidential and senatorial election results data separately and matched the records with the census data by key.
+All the datasets combined, we collected a total of 200 features. We also downloaded the presidential and senatorial election results data separately and matched the records with the census data by key.
 
 ## Methods
 
 ### Unsupervised learning
 
-- **Feature engineering**: After preprocessing the data, we plan to implement Principal Component Analysis (PCA) [[5]](#5) for identifying the _k_ most important principal components. Using this, we intend to reduce the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results.
+- **Feature engineering**: After preprocessing the data, we implemented Principal Component Analysis (PCA) [[5]](#5) for identifying the most important principal components, retaining 99% variance. Using this, we reduced the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results.
 - **Time series analysis**: Given that our data contains 20-30 years of reliable census data, we intend to use ARIMA [[6]](#6) to visualize the time series and analyze the trends of every feature, to find the optimal parameters to build the model. We also plan to investigate _temporal pattern matching_ to identify recurring features and tendencies, thereby examining which features have the greatest influence on the outcome.
 
 ### Supervised learning
 
-- **Regression**: Utilizing the most important features from the results of PCA, we aim to build a regression model [[7]](#7) to fit a N-dimensional model for our data. To avoid overfitting techniques such as lasso, ridge, or elastic regularization can be utilized to penalize highly complex models. 
+- **Regression**: Utilizing the most important features from the results of PCA, we built a regression model [[7]](#7) to fit a N-dimensional model for our data. To avoid overfitting, we implemented a _Lasso_ regularization method to reduce the number of features.
 - **Deep learning**: We plan to train a deep learning neural network and simplify the problem to a classification task [[8]](#8), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning [[9]](#9), hyperparameter tuning [[10]](#10), batch training etc. to try and increase the accuracy of our model.
 
 ## Results and discussion
 
 ### Data handling
+
 - Downloaded the data from the Census Bureau website
 - Cleaned the data
-  - Removed categorical features
-  - Removed linearly dependent features
-  - Averaged out missing values
-  - Normalized the data
-- Constructed dataloaders
+  - Removed categorical features, as encoding categorical features would increase the dimensionality of the data.
+  - Removed linearly dependent features, as they would not be useful for our model.
+  - Used Random Forest Regression to fit all features with no missing data, and then individually transform the remaining features with missing data. If a feature had more than 20% missing data, it was removed. By doing this, we reduced the dimensionality of our data from 200 to 183 features, out of which only 3 needed to be imputed.
+  - Normalized the data, to reduce the variance of the data.
+- Constructed dataloaders.
 
 ### Unsupervised learning (PCA for dimensionality reduction)
 
-We implemented PCA using the sklearn library, and the results of the analysis are shown in the following figure.
+We implemented PCA using the scikit-learn library, and the results of the analysis are shown in the following figure.
 
 From a total of 183 features, we reduced and retained 101 features, with 99% of the variance explained.
 
 ### Supervised learning (Ensemble model)
 
 We decided to use an ensemble model for our main analysis, consisting of:
-- A regression model
-- A decision tree model
-- A deep learning model
+- A K-Nearest Neighbors (KNN) model
+- A random forest model
+- A support vector machine (SVM) model
+
 
 ## Video Proposal
 
