@@ -19,7 +19,7 @@ The data is available in a CSV format, and we have included a script to download
 - STATE
 - COUNTY
 
-Every data record has a unique combination of these keys, and the year generally varies from 2009 to 2019 (inclusive), the time range of data we were able to obtain from the census website. The state and county are two designated numeric identifiers, known as FIPS codes. A state is denoted by two digits, and a county is denoted by three digits, together forming a unique five-digit FIPS code. The census data is available for all states and all counties.
+Every data record has a unique combination of these keys, and the year generally varies from 2009 to 2019 (inclusive), the time range of data we were able to obtain from the census website. The state and county are two designated numeric identifiers, known as FIPS codes. A state is denoted by two digits, and a county is denoted by three digits, together forming a unique five-digit FIPS code. The census data is available for all counties in all states.
 
 All the datasets combined, we collected a total of 200 features. We also downloaded the presidential and senatorial election results data separately and matched the records with the census data by key.
 
@@ -32,7 +32,7 @@ All the datasets combined, we collected a total of 200 features. We also downloa
 
 ### Supervised learning
 
-- **Regression**: Utilizing the most important features from the results of PCA, we built a regression model [[7]](#7) to fit a N-dimensional model for our data. To avoid overfitting, we implemented a _Lasso_ regularization method to reduce the number of features.
+- **Regression**: Utilizing the most important features from the results of PCA, we built a regression model [[7]](#7) to fit a N-dimensional model for our data. 
 - **Deep learning**: We plan to train a deep learning neural network and simplify the problem to a classification task [[8]](#8), where there will be two output neurons representing the two political parties (Democrat vs Republican). We can utilize a number of techniques here such as transfer learning [[9]](#9), hyperparameter tuning [[10]](#10), batch training etc. to try and increase the accuracy of our model.
 
 ## Results and discussion
@@ -45,7 +45,7 @@ All the datasets combined, we collected a total of 200 features. We also downloa
   - Removed linearly dependent features, as they would not be useful for our model.
   - Used Random Forest Regression to fit all features with no missing data, and then individually transform the remaining features with missing data. If a feature had more than 20% missing data, it was removed. By doing this, we reduced the dimensionality of our data from 200 to 183 features, out of which only 3 needed to be imputed.
   - Normalized the data, to reduce the variance of the data.
-- Constructed dataloaders.
+ - Constructed dataloaders.
 
 ### Unsupervised learning (PCA for dimensionality reduction)
 
