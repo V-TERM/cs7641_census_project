@@ -1,5 +1,9 @@
 import pandas as pd
 import numpy as np
+from collections import Counter
+from imblearn.over_sampling import SMOTE
+from imblearn.under_sampling import RandomUnderSampler
+from imblearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
@@ -18,6 +22,15 @@ def run_models_classifier(filename):
     y = df['label'].to_numpy()
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+    # Use SMOTE to oversample minority class
+    print("Before SMOTE:", Counter(y_train))
+    over = SMOTE(sampling_strategy=0.75)
+    under = RandomUnderSampler(sampling_strategy=1.0)
+    steps = [('o', over), ('u', under)]
+    pipeline = Pipeline(steps=steps)
+    X_train, y_train = pipeline.fit_resample(X_train, y_train)
+    print("After SMOTE:", Counter(y_train))
 
     print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 
@@ -132,4 +145,4 @@ def run_models_regressor(filename):
     print("MSE", mean_squared_error(y_test, y_pred))
 
 if __name__ == '__main__':
-    run_models_classifier("./data/county_pres_pca.csv")
+    run_models_classifier("./data/county_sen_pca.csv")
