@@ -49,9 +49,13 @@ All the datasets combined, we collected a total of 200 features. We also downloa
 
 ### Unsupervised learning (PCA for dimensionality reduction)
 
-We implemented PCA using the scikit-learn library, and the results of the analysis are shown in the following figure.
+We implemented PCA using the scikit-learn library, and the results of the analysis are shown in the following figures.
 
-From a total of 183 features, we reduced and retained 101 features, with 99% of the variance explained.
+![PCA results for presidential election results](/docs/assets/pca_presidential_elec.png)
+
+![PCA results for senatorial election results](/docs/assets/pca_senatorial_elec.png)
+
+From a total of 183 features, we retained 101 features, with 99% of the variance explained.
 
 ### Supervised learning (Ensemble model)
 
