@@ -136,14 +136,14 @@ def preprocess_presidential_results():
         else:
             county_df = pd.concat([county_df, _df])
 
-    county_df.to_csv("./county_pres.csv")
+    county_df.to_csv("./tmp/county_pres.csv")
     for state in tqdm(_dataloader.states, desc='state presidential preprocessing'):
         _df = _dataloader.get_state(state.strip())
         if state_df is None:
             state_df = _df
         else:
             state_df = pd.concat([state_df, _df])
-    state_df.to_csv("./state_pres.csv")
+    state_df.to_csv("./tmp/state_pres.csv")
     return county_df, state_df
 
 
@@ -157,7 +157,7 @@ def preprocess_senate_results():
             county_df = _df
         else:
             county_df = pd.concat([county_df, _df])
-    county_df.to_csv("./county_sen.csv")
+    county_df.to_csv("./tmp/county_sen.csv")
 
     for state in tqdm(_dataloader.states, desc='state senate preprocessing'):
         _df = _dataloader.get_state(state.strip())
@@ -165,7 +165,7 @@ def preprocess_senate_results():
             state_df = _df
         else:
             state_df = pd.concat([state_df, _df])
-    state_df.to_csv("./state_sen.csv")
+    state_df.to_csv("./tmp/state_sen.csv")
     return county_df, state_df
 
 if __name__ == "__main__":

@@ -145,4 +145,6 @@ def run_models_regressor(filename):
     print("MSE", mean_squared_error(y_test, y_pred))
 
 if __name__ == '__main__':
-    run_models_classifier("./data/county_sen_pca.csv")
+    run_models_classifier("./county_sen.csv")
+    run_models_classifier("./county_pres.csv")
+    
