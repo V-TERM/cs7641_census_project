@@ -34,7 +34,8 @@ FIPS_TO_STATE = {'53': 'WA', '10': 'DE', '11': 'DC', '55': 'WI', '54': 'WV',
  '28': 'MS', '45': 'SC', '21': 'KY', '41': 'OR'}
 
 YEARS = [str(i) for i in range(2009, 2020)]  # 2009 to 2019
-ELEC_YEARS = ["2009", "2010", "2012", "2014", "2016", "2018", "2019"]
+#ELEC_YEARS = ["2009", "2010", "2012", "2014", "2016", "2018", "2019"]
+ELEC_YEARS = ["2011", "2013", "2015", "2017"]
 
 
 def pull_Json(Year):
@@ -207,7 +208,7 @@ def get_acs_variables_by_year():
     df = pd.DataFrame(data, columns=years, index=var_2009)
     df.to_csv("./tmp/inspect_variables.csv")
 
-def collect_acs(fips_range, api_key, outfile_index):
+def collect_acs(fips_range, api_key, outfile_index, get_missing=False):
     """
     Uses API key to scrape data from Census ACS.
     Returns collected data.
@@ -218,7 +219,7 @@ def collect_acs(fips_range, api_key, outfile_index):
     num_var = len(var_df)
 
     var_by_year = {}
-    for year in ELEC_YEARS:
+    for year in YEARS:
         acs_variables_year = var_df[year].to_list()
         var_by_year[year] = acs_variables_year
 
@@ -226,17 +227,32 @@ def collect_acs(fips_range, api_key, outfile_index):
     with open('./us_county_fips.json', 'r') as f:
         fips_dict = json.load(f)
 
+    # Get census data retrieved so far
+    if get_missing:
+        dfs = []
+        df_paths = glob.glob(osp.join("./tmp", "acs_data_*.csv"))
+        for path in df_paths:
+            dfs += [pd.read_csv(path, dtype=str)]
+        df_sofar = pd.concat(dfs, axis=0)
+        #print(len(df_sofar))
+
     main_df = {}
     for i in range(0, num_var, 50):
         main_df[i] = []
 
-    for year in ELEC_YEARS:
+    for year in YEARS:
+    #for year in ELEC_YEARS:
     
+        #print("Trying for year", year)
         df_a = copy.deepcopy(main_df)
         for code, cnty_name in fips_dict.items():
             state, cnty = code[:2], code[2:]
 
             if int(state) < fips_range[0] or int(state) > fips_range[1]:
+                continue
+            if get_missing and ((df_sofar['year'] == year)
+                                 & (df_sofar['state_fips'] == str(int(state)))
+                                 & (df_sofar['cnty_fips'] == str(int(cnty)))).any():
                 continue
 
             print("Pulling data from state", state, "and county", cnty, "for year", year)
@@ -283,13 +299,16 @@ def collect_acs(fips_range, api_key, outfile_index):
             for k, v in df_yc.items():
                 df_a[k] = df_a[k] + v
 
-        for k in df_a.keys():
-            df_a[k] = pd.concat(df_a[k], ignore_index=True)
-        df = pd.concat([v for _, v in df_a.items()], axis=1)
+        try:
+            for k in df_a.keys():
+                df_a[k] = pd.concat(df_a[k], ignore_index=True)
+            df = pd.concat([v for _, v in df_a.items()], axis=1)
 
-        df.columns = var_by_year["2009"] + \
-            ["state", "county", "state_fips", "cnty_fips", "state_name", "cnty_name", "year"]
-        df.to_csv('tmp/acs_data_{}_{}.csv'.format(outfile_index, year), index=False)
+            df.columns = var_by_year["2009"] + \
+                ["state", "county", "state_fips", "cnty_fips", "state_name", "cnty_name", "year"]
+            df.to_csv('tmp/acs_data_{}_{}.csv'.format(outfile_index, year), index=False)
+        except ValueError:
+            pass
 
 #def collect_acs():
 #    collect_acs((1,56), API_key1, 0)
@@ -302,7 +321,7 @@ def preprocess_acs(in_dir, outfile):
     cbp_df = cbp_df.rename(columns={"YEAR": "year"})
     mf_df = mf_df.rename(columns={"YEAR": "year"})
 
-    mf_df = mf_df[mf_df["year"].isin(["2009", "2010", "2012", "2014", "2016", "2018", "2019"])]
+    #mf_df = mf_df[mf_df["year"].isin(["2009", "2010", "2012", "2014", "2016", "2018", "2019"])]
 
     dfs = []
     df_paths = glob.glob(osp.join(in_dir, "acs_data_*.csv"))
@@ -319,6 +338,8 @@ def preprocess_acs(in_dir, outfile):
     print(len(df_2009), len(df_non2009))
 
     df = pd.concat([df_2009, df_non2009], axis=0)
+
+    df = df.sort_values(by=['year', 'state_fips', 'cnty_fips'])
 
     print("Number of data points:", len(df))
     print("Number of columns (initially):", len(df.columns))
@@ -382,17 +403,19 @@ def preprocess_acs(in_dir, outfile):
 if __name__ == '__main__':
     #find_common_json(YEARS)
     
-    #which_key = int(sys.argv[1])
-    #if which_key == 1:
-    #    fips_range, x, y = (0, 20), API_key1, 0
-    #elif which_key == 2:
-    #    fips_range, x, y = (21, 32), API_key2, 1
-    #elif which_key == 3:
-    #    fips_range, x, y = (33, 46), API_key1, 2
-    #elif which_key == 4:
-    #    fips_range, x, y = (47, 56), API_key4, 3
-    #print(fips_range, x, y)
-    #collect_acs(fips_range, x, y)
+    # which_key = int(sys.argv[1])
+    # if which_key == 1:
+    #    fips_range, x, y = (0, 20), API_key1, 4
+    # elif which_key == 2:
+    #    fips_range, x, y = (21, 32), API_key2, 5
+    # elif which_key == 3:
+    #    fips_range, x, y = (33, 46), API_key1, 6
+    # elif which_key == 4:
+    #    fips_range, x, y = (47, 56), API_key4, 7
+    # print(fips_range, x, y)
+    # collect_acs(fips_range, x, y)
+
+    #collect_acs((0, 56), API_key1, 8, get_missing=True)
 
     # inspect = False
     # if inspect:
@@ -418,4 +441,5 @@ if __name__ == '__main__':
     #         inspect_variables_across_years(code_2009, fix_dic, False, True)
     # else:
     #     get_acs_variables_by_year()
+    
     preprocess_acs("./tmp", "./tmp/census_data.csv")
