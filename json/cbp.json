@@ -1,0 +1,662 @@
+{
+    "@context": "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld",
+    "@id": "https://api.census.gov/data/1986/cbp.json",
+    "@type": "dcat:Catalog",
+    "conformsTo": "https://project-open-data.cio.gov/v1.1/schema",
+    "describedBy": "https://project-open-data.cio.gov/v1.1/schema/catalog.json",
+    "dataset": [
+        {
+            "c_vintage": 2009,
+            "c_dataset": [
+              "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2009/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2009/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2009/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2009/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2009/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2009/cbp/values.json",
+            "c_documentationLink": "http://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "2009 County Business Patterns: Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+              "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides economic data by industry at the U.S., State, County and Metropolitan Area levels. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. CBP provides statistics for businesses with paid employees for the U.S., Puerto Rico, and the Island Areas. Census Bureau staff identified a processing error that affects selected data from the 2014 County Business Patterns (CBP). As a result, we suppressed 2014 employment and payroll totals in the Health Care and Social Assistance sector (Sector 62) for the following geographies: U.S.; Michigan; Battle Creek, MI metro area; Calhoun County, MI; and the 3rd congressional district of Michigan. This processing error did not affect other sectors. While suppressed values can be derived by subtraction, we do not recommend using the derived values in any analyses.  The Census Bureau plans to release revised statistics at a later date.",
+            "distribution": [
+              {
+                "@type": "dcat:Distribution",
+                "accessURL": "https://api.census.gov/data/2009/cbp",
+                "description": "API endpoint",
+                "format": "API",
+                "mediaType": "application/json",
+                "title": "API endpoint"
+              }
+            ],
+            "contactPoint": {
+              "fn": "CBP Staff",
+              "hasEmail": "epcd.county.business.patterns@census.gov"
+            },
+            "identifier": "http://api.census.gov/data/id/CBP2009",
+            "keyword": [
+            ],
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/Public Domain",
+            "modified": "2017-02-22",
+            "programCode": [
+              "006:007"
+            ],
+            "references": [
+              "http://www.census.gov/developers/"
+            ],
+            "spatial": "United States",
+            "temporal": "2009/2009",
+            "publisher": {
+              "@type": "org:Organization",
+              "name": "U.S. Census Bureau",
+              "subOrganizationOf": {
+                   "@type": "org:Organization",
+                   "name": "U.S. Department Of Commerce",
+                   "subOrganizationOf": {
+                       "@type": "org:Organization",
+                       "name": "U.S. Government"
+                   }
+               }
+            }
+        },
+        {
+            "c_vintage": 2010,
+            "c_dataset": [
+                "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2010/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2010/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2010/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2010/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2010/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2010/cbp/values.json",
+            "c_documentationLink": "http://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "2010 County Business Patterns: Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+                "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides economic data by industry at the U.S., State, County and Metropolitan Area levels. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. CBP provides statistics for businesses with paid employees for the U.S., Puerto Rico, and the Island Areas. Census Bureau staff identified a processing error that affects selected data from the 2014 County Business Patterns (CBP). As a result, we suppressed 2014 employment and payroll totals in the Health Care and Social Assistance sector (Sector 62) for the following geographies: U.S.; Michigan; Battle Creek, MI metro area; Calhoun County, MI; and the 3rd congressional district of Michigan. This processing error did not affect other sectors. While suppressed values can be derived by subtraction, we do not recommend using the derived values in any analyses.  The Census Bureau plans to release revised statistics at a later date.",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "accessURL": "https://api.census.gov/data/2010/cbp",
+                    "description": "API endpoint",
+                    "format": "API",
+                    "mediaType": "application/json",
+                    "title": "API endpoint"
+                }
+            ],
+            "contactPoint": {
+                "fn": "CBP Staff",
+                "hasEmail": "epcd.county.business.patterns@census.gov"
+            },
+            "identifier": "http://api.census.gov/data/id/CBP2010",
+            "keyword": [],
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/Public Domain",
+            "modified": "2017-02-22",
+            "programCode": [
+                "006:007"
+            ],
+            "references": [
+                "http://www.census.gov/developers/"
+            ],
+            "spatial": "United States",
+            "temporal": "2010/2010",
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "U.S. Census Bureau",
+                "subOrganizationOf": {
+                    "@type": "org:Organization",
+                    "name": "U.S. Department Of Commerce",
+                    "subOrganizationOf": {
+                        "@type": "org:Organization",
+                        "name": "U.S. Government"
+                    }
+                }
+            }
+        },
+        {
+            "c_vintage": 2011,
+            "c_dataset": [
+                "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2011/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2011/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2011/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2011/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2011/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2011/cbp/values.json",
+            "c_documentationLink": "http://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "2011 County Business Patterns: Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+                "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides economic data by industry at the U.S., State, County and Metropolitan Area levels. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. CBP provides statistics for businesses with paid employees for the U.S., Puerto Rico, and the Island Areas. Census Bureau staff identified a processing error that affects selected data from the 2014 County Business Patterns (CBP). As a result, we suppressed 2014 employment and payroll totals in the Health Care and Social Assistance sector (Sector 62) for the following geographies: U.S.; Michigan; Battle Creek, MI metro area; Calhoun County, MI; and the 3rd congressional district of Michigan. This processing error did not affect other sectors. While suppressed values can be derived by subtraction, we do not recommend using the derived values in any analyses.  The Census Bureau plans to release revised statistics at a later date.",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "accessURL": "https://api.census.gov/data/2011/cbp",
+                    "description": "API endpoint",
+                    "format": "API",
+                    "mediaType": "application/json",
+                    "title": "API endpoint"
+                }
+            ],
+            "contactPoint": {
+                "fn": "CBP Staff",
+                "hasEmail": "epcd.county.business.patterns@census.gov"
+            },
+            "identifier": "http://api.census.gov/data/id/CBP2011",
+            "keyword": [],
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/Public Domain",
+            "modified": "2017-02-22",
+            "programCode": [
+                "006:007"
+            ],
+            "references": [
+                "http://www.census.gov/developers/"
+            ],
+            "spatial": "United States",
+            "temporal": "2011/2011",
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "U.S. Census Bureau",
+                "subOrganizationOf": {
+                    "@type": "org:Organization",
+                    "name": "U.S. Department Of Commerce",
+                    "subOrganizationOf": {
+                        "@type": "org:Organization",
+                        "name": "U.S. Government"
+                    }
+                }
+            }
+        },
+        {
+            "c_vintage": 2012,
+            "c_dataset": [
+                "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2012/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2012/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2012/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2012/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2012/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2012/cbp/values.json",
+            "c_documentationLink": "https://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "Annual Economic Surveys: Business Patterns: County Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+                "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides sub-national economic data by industry. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. This data is useful for studying the economic activity of small areas, analyzing economic changes over time, and as a benchmark for other statistical series, surveys, and databases between economic censuses. Businesses use the data for analyzing market potential, measuring the effectiveness of sales and advertising programs, setting sales quotas, and developing budgets. Government agencies use the data for administration and planning.",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "accessURL": "https://api.census.gov/data/2012/cbp",
+                    "description": "API endpoint",
+                    "format": "API",
+                    "mediaType": "application/json",
+                    "title": "API endpoint"
+                }
+            ],
+            "contactPoint": {
+                "fn": "CBP Staff",
+                "hasEmail": "mailto:econ.dissemination@census.gov"
+            },
+            "identifier": "https://api.census.gov/data/id/CBP2012",
+            "keyword": [],
+            "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "modified": "2018-04-20 00:00:00.0",
+            "programCode": [
+                "006:007"
+            ],
+            "references": [
+                "https://www.census.gov/developers/"
+            ],
+            "temporal": "unidentified",
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "U.S. Census Bureau",
+                "subOrganizationOf": {
+                    "@type": "org:Organization",
+                    "name": "U.S. Department Of Commerce",
+                    "subOrganizationOf": {
+                        "@type": "org:Organization",
+                        "name": "U.S. Government"
+                    }
+                }
+            }
+        },
+        {
+            "c_vintage": 2013,
+            "c_dataset": [
+                "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2013/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2013/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2013/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2013/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2013/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2013/cbp/values.json",
+            "c_documentationLink": "https://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "2013 County Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+                "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides sub-national economic data by industry. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. This data is useful for studying the economic activity of small areas, analyzing economic changes over time, and as a benchmark for other statistical series, surveys, and databases between economic censuses. Businesses use the data for analyzing market potential, measuring the effectiveness of sales and advertising programs, setting sales quotas, and developing budgets. Government agencies use the data for administration and planning.",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "accessURL": "https://api.census.gov/data/2013/cbp",
+                    "description": "API endpoint",
+                    "format": "API",
+                    "mediaType": "application/json",
+                    "title": "API endpoint"
+                }
+            ],
+            "contactPoint": {
+                "fn": "CBP Staff",
+                "hasEmail": "mailto:econ.dissemination@census.gov"
+            },
+            "identifier": "https://api.census.gov/data/id/CBP2013",
+            "keyword": [],
+            "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "modified": "2018-04-20 00:00:00.0",
+            "programCode": [
+                "006:007"
+            ],
+            "references": [
+                "https://www.census.gov/developers/"
+            ],
+            "temporal": "unidentified",
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "U.S. Census Bureau",
+                "subOrganizationOf": {
+                    "@type": "org:Organization",
+                    "name": "U.S. Department Of Commerce",
+                    "subOrganizationOf": {
+                        "@type": "org:Organization",
+                        "name": "U.S. Government"
+                    }
+                }
+            }
+        },
+        {
+            "c_vintage": 2014,
+            "c_dataset": [
+                "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2014/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2014/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2014/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2014/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2014/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2014/cbp/values.json",
+            "c_documentationLink": "https://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "2014 County Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+                "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides sub-national economic data by industry. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. This data is useful for studying the economic activity of small areas, analyzing economic changes over time, and as a benchmark for other statistical series, surveys, and databases between economic censuses. Businesses use the data for analyzing market potential, measuring the effectiveness of sales and advertising programs, setting sales quotas, and developing budgets. Government agencies use the data for administration and planning.",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "accessURL": "https://api.census.gov/data/2014/cbp",
+                    "description": "API endpoint",
+                    "format": "API",
+                    "mediaType": "application/json",
+                    "title": "API endpoint"
+                }
+            ],
+            "contactPoint": {
+                "fn": "CBP Staff",
+                "hasEmail": "mailto:econ.dissemination@census.gov"
+            },
+            "identifier": "https://api.census.gov/data/id/CBP2014",
+            "keyword": [],
+            "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "modified": "2018-04-20 00:00:00.0",
+            "programCode": [
+                "006:007"
+            ],
+            "references": [
+                "https://www.census.gov/developers/"
+            ],
+            "temporal": "unidentified",
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "U.S. Census Bureau",
+                "subOrganizationOf": {
+                    "@type": "org:Organization",
+                    "name": "U.S. Department Of Commerce",
+                    "subOrganizationOf": {
+                        "@type": "org:Organization",
+                        "name": "U.S. Government"
+                    }
+                }
+            }
+        },
+        {
+            "c_vintage": 2015,
+            "c_dataset": [
+                "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2015/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2015/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2015/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2015/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2015/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2015/cbp/values.json",
+            "c_documentationLink": "https://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "2015 County Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+                "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides sub-national economic data by industry. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. This data is useful for studying the economic activity of small areas, analyzing economic changes over time, and as a benchmark for other statistical series, surveys, and databases between economic censuses. Businesses use the data for analyzing market potential, measuring the effectiveness of sales and advertising programs, setting sales quotas, and developing budgets. Government agencies use the data for administration and planning.",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "accessURL": "https://api.census.gov/data/2015/cbp",
+                    "description": "API endpoint",
+                    "format": "API",
+                    "mediaType": "application/json",
+                    "title": "API endpoint"
+                }
+            ],
+            "contactPoint": {
+                "fn": "CBP Staff",
+                "hasEmail": "mailto:econ.dissemination@census.gov"
+            },
+            "identifier": "https://api.census.gov/data/id/CBP2015",
+            "keyword": [],
+            "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "modified": "2018-04-20 00:00:00.0",
+            "programCode": [
+                "006:007"
+            ],
+            "references": [
+                "https://www.census.gov/developers/"
+            ],
+            "temporal": "unidentified",
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "U.S. Census Bureau",
+                "subOrganizationOf": {
+                    "@type": "org:Organization",
+                    "name": "U.S. Department Of Commerce",
+                    "subOrganizationOf": {
+                        "@type": "org:Organization",
+                        "name": "U.S. Government"
+                    }
+                }
+            }
+        },
+        {
+            "c_vintage": 2016,
+            "c_dataset": [
+                "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2016/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2016/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2016/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2016/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2016/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2016/cbp/values.json",
+            "c_documentationLink": "https://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "2016 County Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+                "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides sub-national economic data by industry. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. This data is useful for studying the economic activity of small areas, analyzing economic changes over time, and as a benchmark for other statistical series, surveys, and databases between economic censuses. Businesses use the data for analyzing market potential, measuring the effectiveness of sales and advertising programs, setting sales quotas, and developing budgets. Government agencies use the data for administration and planning.",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "accessURL": "https://api.census.gov/data/2016/cbp",
+                    "description": "API endpoint",
+                    "format": "API",
+                    "mediaType": "application/json",
+                    "title": "API endpoint"
+                }
+            ],
+            "contactPoint": {
+                "fn": "CBP Staff",
+                "hasEmail": "mailto:econ.dissemination@census.gov"
+            },
+            "identifier": "https://api.census.gov/data/id/CBP2016",
+            "keyword": [],
+            "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "modified": "2018-04-20 00:00:00.0",
+            "programCode": [
+                "006:007"
+            ],
+            "references": [
+                "https://www.census.gov/developers/"
+            ],
+            "temporal": "unidentified",
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "U.S. Census Bureau",
+                "subOrganizationOf": {
+                    "@type": "org:Organization",
+                    "name": "U.S. Department Of Commerce",
+                    "subOrganizationOf": {
+                        "@type": "org:Organization",
+                        "name": "U.S. Government"
+                    }
+                }
+            }
+        },
+        {
+            "c_vintage": 2017,
+            "c_dataset": [
+                "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2017/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2017/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2017/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2017/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2017/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2017/cbp/values.json",
+            "c_documentationLink": "https://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "Annual Economic Surveys: Business Patterns: County Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+                "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides sub-national economic data by industry. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. This data is useful for studying the economic activity of small areas, analyzing economic changes over time, and as a benchmark for other statistical series, surveys, and databases between economic censuses. Businesses use the data for analyzing market potential, measuring the effectiveness of sales and advertising programs, setting sales quotas, and developing budgets. Government agencies use the data for administration and planning.",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "accessURL": "https://api.census.gov/data/2017/cbp",
+                    "description": "API endpoint",
+                    "format": "API",
+                    "mediaType": "application/json",
+                    "title": "API endpoint"
+                }
+            ],
+            "contactPoint": {
+                "fn": "CBP Staff",
+                "hasEmail": "mailto:Econ.dissemination@census.gov"
+            },
+            "identifier": "https://api.census.gov/data/id/CBP2017",
+            "keyword": [],
+            "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "modified": "2019-11-07 14:49:23.0",
+            "programCode": [
+                "006:007"
+            ],
+            "references": [
+                "https://www.census.gov/developers/"
+            ],
+            "temporal": "unidentified",
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "U.S. Census Bureau",
+                "subOrganizationOf": {
+                    "@type": "org:Organization",
+                    "name": "U.S. Department Of Commerce",
+                    "subOrganizationOf": {
+                        "@type": "org:Organization",
+                        "name": "U.S. Government"
+                    }
+                }
+            }
+        },
+        {
+            "c_vintage": 2018,
+            "c_dataset": [
+                "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2018/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2018/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2018/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2018/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2018/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2018/cbp/values.json",
+            "c_documentationLink": "https://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "Annual Economic Surveys: Business Patterns: County Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+                "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides sub-national economic data by industry for establishments with paid employees. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. Data for establishments are presented by geographic area, 2- thru 6-digit NAICS industry, legal form of organization (U.S. and state only), and employment size of the establishment.",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "accessURL": "https://api.census.gov/data/2018/cbp",
+                    "description": "API endpoint",
+                    "format": "API",
+                    "mediaType": "application/json",
+                    "title": "API endpoint"
+                }
+            ],
+            "contactPoint": {
+                "fn": "CBP Staff",
+                "hasEmail": "mailto:econ.dissemination@census.gov"
+            },
+            "identifier": "https://api.census.gov/data/id/CBP2018",
+            "keyword": [],
+            "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "modified": "2020-05-07 00:00:00.0",
+            "programCode": [
+                "006:007"
+            ],
+            "references": [
+                "https://www.census.gov/developers/"
+            ],
+            "temporal": "unidentified",
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "U.S. Census Bureau",
+                "subOrganizationOf": {
+                    "@type": "org:Organization",
+                    "name": "U.S. Department Of Commerce",
+                    "subOrganizationOf": {
+                        "@type": "org:Organization",
+                        "name": "U.S. Government"
+                    }
+                }
+            }
+        },
+        {
+            "c_vintage": 2019,
+            "c_dataset": [
+                "cbp"
+            ],
+            "c_geographyLink": "https://api.census.gov/data/2019/cbp/geography.json",
+            "c_variablesLink": "https://api.census.gov/data/2019/cbp/variables.json",
+            "c_tagsLink": "https://api.census.gov/data/2019/cbp/tags.json",
+            "c_examplesLink": "https://api.census.gov/data/2019/cbp/examples.json",
+            "c_groupsLink": "https://api.census.gov/data/2019/cbp/groups.json",
+            "c_valuesLink": "https://api.census.gov/data/2019/cbp/values.json",
+            "c_documentationLink": "https://www.census.gov/developer/",
+            "c_isAggregate": true,
+            "c_isAvailable": true,
+            "@type": "dcat:Dataset",
+            "title": "Annual Economic Surveys: Business Patterns: County Business Patterns",
+            "accessLevel": "public",
+            "bureauCode": [
+                "006:07"
+            ],
+            "description": "County Business Patterns (CBP) is an annual series that provides sub-national economic data by industry for establishments with paid employees. This series includes the number of establishments, employment during the week of March 12, first quarter payroll, and annual payroll. Data for establishments are presented by geographic area, 2- thru 6-digit NAICS industry, legal form of organization (U.S. and state only), and employment size of the establishment.",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "accessURL": "https://api.census.gov/data/2019/cbp",
+                    "description": "API endpoint",
+                    "format": "API",
+                    "mediaType": "application/json",
+                    "title": "API endpoint"
+                }
+            ],
+            "contactPoint": {
+                "fn": "CBP Staff",
+                "hasEmail": "mailto:econ.dissemination@census.gov"
+            },
+            "identifier": "https://api.census.gov/data/id/CBP2019",
+            "keyword": [],
+            "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "modified": "2021-01-21 00:00:00.0",
+            "programCode": [
+                "006:007"
+            ],
+            "references": [
+                "https://www.census.gov/developers/"
+            ],
+            "temporal": "unidentified",
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "U.S. Census Bureau",
+                "subOrganizationOf": {
+                    "@type": "org:Organization",
+                    "name": "U.S. Department Of Commerce",
+                    "subOrganizationOf": {
+                        "@type": "org:Organization",
+                        "name": "U.S. Government"
+                    }
+                }
+            }
+        }
+    ]
+}

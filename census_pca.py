@@ -46,7 +46,7 @@ class CensusPCA():
 		self.k = k
 		self.X_min = X[:, :k]
 
-	def write_to_file(self, outfile="./data/tmp/census_data_pca.csv"):
+	def write_to_file(self, outfile="./tmp/census_data_pca.csv"):
 		df = pd.DataFrame(self.X_min,
 						  columns=pd.RangeIndex(self.X_min.shape[1]))
 		df = pd.concat([df, self.other_cols], axis=1)

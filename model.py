@@ -6,7 +6,7 @@ from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, AdaBoostClassifier, BaggingClassifier
 from sklearn.svm import SVC, SVR
 from sklearn.ensemble import VotingClassifier, VotingRegressor
 from sklearn.model_selection import train_test_split
@@ -42,20 +42,20 @@ def run_models_classifier(filename):
         print(confusion_matrix(y_test, y_pred))
         print("Cross entropy loss:", log_loss(y_test, y_pred))
 
-    knc = KNeighborsClassifier(n_neighbors=5)
-    params_knc = {'n_neighbors': np.arange(1, 25)}
+    knc = AdaBoostClassifier()
+    params_knc = {'n_estimators': np.arange(50, 100, 10)}
     knc_gs = GridSearchCV(knc, params_knc, cv=5)
     knc_gs.fit(X_train, y_train)
 
     knc_best = knc_gs.best_estimator_
-    print("Best KNC params:")
+    print("Best ADA params:")
     print(knc_gs.best_params_)
 
     y_pred = knc_best.predict(X_test)
-    print_results("KNC", y_test, y_pred)
+    print_results("ADA", y_test, y_pred)
     
-    rfc = RandomForestClassifier()
-    params_rfc = {'n_estimators': [100, 200, 400]}
+    rfc = RandomForestClassifier(n_jobs=-1)
+    params_rfc = {'n_estimators': [1500]}
     rfc_gs = GridSearchCV(rfc, params_rfc, cv=5)
     rfc_gs.fit(X_train, y_train)
 
@@ -66,8 +66,8 @@ def run_models_classifier(filename):
     y_pred = rfc_best.predict(X_test)
     print_results("RFC", y_test, y_pred)
 
-    svc = SVC(C=1.0)
-    params_svc = {'C': [0.01, 0.1, 1.0, 10]}
+    svc = BaggingClassifier(n_jobs=-1)
+    params_svc = {'n_estimators': np.arange(10, 100, 10)}
     svc_gs = GridSearchCV(svc, params_svc, cv=5)
     svc_gs.fit(X_train, y_train)
 
@@ -76,9 +76,9 @@ def run_models_classifier(filename):
     print(svc_gs.best_params_)
 
     y_pred = svc_best.predict(X_test)
-    print_results("SVC", y_test, y_pred)
+    print_results("BagC", y_test, y_pred)
 
-    estimators=[('knc', knc_best), ('rfc', rfc_best), ('svc', svc_best)]
+    estimators=[('ADA', knc_best), ('rfc', rfc_best), ('BagC', svc_best)]
     ensemble = VotingClassifier(estimators)
     ensemble.fit(X_train, y_train)
 
@@ -112,7 +112,7 @@ def run_models_regressor(filename):
     print(knr_gs.best_params_)
 
     rfr = RandomForestRegressor()
-    params_rfr = {'n_estimators': [50, 100, 200, 400]}
+    params_rfr = {'n_estimators': [1200]}
     rfr_gs = GridSearchCV(rfr, params_rfr, cv=5)
     rfr_gs.fit(X_train, y_train)
 
@@ -145,4 +145,6 @@ def run_models_regressor(filename):
     print("MSE", mean_squared_error(y_test, y_pred))
 
 if __name__ == '__main__':
-    run_models_classifier("./data/county_sen_pca.csv")
+    run_models_classifier("./tmp/county_sen.csv")
+    run_models_classifier("./tmp/county_pres.csv")
+    
