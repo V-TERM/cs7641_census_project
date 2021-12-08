@@ -70,7 +70,7 @@ In addition to the above models, we implemented a recurrent neural network (RNN)
 For all the above approaches, in order to address the large class imbalance in our data, we utilized a SMOTE [[9]](https://machinelearningmastery.com/smote-oversampling-for-imbalanced-classification/) over-sampler to create synthetic data of the minority class in order to create a class balance of 1 in our training data. In addition, we use an undersampler to reduce the number of samples in the majority class. Both are from the Python library `imblearn`. 
 
 ### Hyperparameters
-We performed hyperparamter tuning for each of the models, and arrived at the following values:
+We performed hyperparameter tuning for each of the models, and arrived at the following values:
 * For AdaBoost, we set the number of estimators to 90.
 * For random forest, we set the number of trees to 1500.
 * For bagging, we set the number of estimators to 50.
@@ -95,7 +95,7 @@ This table shows the F1 scores of each model for each dataset:
 | Presidential data | 0.179    | 0.112         | 0.167   | 0.118    | 0.456 |
 | Senatatorial data | 0.350    | 0.258         | 0.267   | 0.284    | 0.476    |
 
-The following are confusion matrices that correspond to the models with the best F1-scores for each dataset:
+The following are confusion matrices that correspond to the F1-scores for AdaBoost:
 
 AdaBoost for Presidential:
 
