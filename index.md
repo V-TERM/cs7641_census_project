@@ -1,3 +1,5 @@
+# Predicting Election Flips from Changes in Census Data
+
 ## Introduction
 
 In recent years, there has been a socio-political shift in rural and urban areas which has resulted in greater divides at the local and national level. Our project aims to model economic, demographic, and social changes at a county level to predict the potential course of future elections, so we can discern the major factors that contribute to political divide.
