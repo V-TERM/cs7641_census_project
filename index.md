@@ -34,37 +34,42 @@ We used a series of Census API keys to pull data for each of the Census datasets
 Every data record has a unique combination of these keys, and the year generally varies from 2009 to 2019 (inclusive), the time range of data we were able to obtain from the census website. The state and county are two designated numeric identifiers, known as FIPS codes. A state is denoted by two digits, and a county is denoted by three digits, together forming a unique five-digit FIPS code. The census data is available for all counties in all states.
 
 ### Election Data
-We pull county-level data for presidential and senatorial races for the years within the range of available Census data; specifically, the 2012 and 2016 presidential elections, and all senatorial races from 2010 to 2018. This data is publicly available from Dave Leip's Atlas of U.S. Elections [[8]]. We implemented a script that utilizes Selenium, a browser automator software, to automatically browse pages on the site using URL and use HTML information to pull the data into .csv files. The results, available for each county for a given election year, serve as the basis for our labels. 
+We pull county-level data for presidential and senatorial races for the years within the range of available Census data; specifically, the 2012 and 2016 presidential elections, and all senatorial races from 2012 to 2018. This data is publicly available from Dave Leip's Atlas of U.S. Elections [[8]]. We implemented a script that utilizes Selenium, a browser automator software, to automatically browse pages on the site using URL and use HTML information to pull the data into .csv files. The results, available for each county for a given election year, serve as the basis for our labels. 
 
 ### Data handling
 - We removed categorical features, as encoding categorical features would have increased the dimensionality of the data.
 - We removed linearly dependent features, as they would not be useful for our model.
-- We used Random Forest Regression to impute features with missing data. If a feature had more than 20% missing data, it was removed. By doing this, we reduced the dimensionality of our data from an original amount of 200 to 183 features, out of which only 3 needed to be imputed.
+- We used Random Forest Regression to impute features with missing data. If a feature had more than 20% missing data, it was removed. By doing this, we reduced the dimensionality of our data from an original amount of 200 to 175 features, out of which 10 needed to be imputed.
 - We normalized the data, to reduce the variance of the data.
-- We constructed dataloaders to handle all preprocessing.
+- We constructed dataloaders to handle all preprocessing and feature extraction. For different models, we employed different feature extraction approaches - see the figure below (TODO).
 - Finally, we merged the election results with the Census Data using an inner join on the aforementioned three primary keys.
+
+![Feature extraction](/docs/assets/feature_extraction.png)
 
 ### Final dataset statistics
 
 |                   | Data points (county/state/year) | Positive labels | Non-positive labels |
 |-------------------|-------------|-----------------|---------------------|
-| Presidential data | 5856        | 510             | 5346                |
-| Senatorial data   | 9334        | 1906            | 7427                |
+| Presidential data | 5860        | 509             | 5351                |
+| Senatorial data   | 7434        | 1234            | 6200                |
 
 ## Methods
 
 ### Unsupervised learning (PCA for dimensionality reduction)
-After preprocessing the data, we implemented Principal Component Analysis (PCA) for identifying the most important principal components, and aimed to retain 99% variance. By using PCA, we reduced the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results. We implemented PCA using the scikit-learn library. Results and selected values of k are shown in plots in the "Results and discussion" section.
+After preprocessing the data, we implemented Principal Component Analysis (PCA) for identifying the most important principal components, and aimed to retain 99% variance. By using PCA, we reduced the dimensionality of the dataset, while observing which features are the most desirable for a model predicting election results. We implemented PCA using the scikit-learn library. Results and selected values of k are shown in plots in the "Results" section.
 
-### Supervised learning
-For classification, we utilized three scikit-learn models, along with an ensemble model that combines the three. The models are:
+### Supervised learning 
+For classification, we utilized three `scikit-learn` models, along with an ensemble model that combines the three. The models are:
 - AdaBoostClassifier
 - RandomForestClassifier
 - BaggingClassifier
 
-Also, in order to address the large class imbalance in our data, we utilized a SMOTE [[9]](https://machinelearningmastery.com/smote-oversampling-for-imbalanced-classification/) over-sampler to create synthetic data of the minority class in order to create a class balance of 1 in our training data. In addition, we use an undersampler to reduce the number of samples in the majority class. Both are from the Python library `imblearn`. 
+In addition to the above models, we implemented a recurrent neural network (RNN) using Keras.
 
-## Results and discussion
+### SMOTE: addressing the class imbalance
+For all the above approaches, in order to address the large class imbalance in our data, we utilized a SMOTE [[9]](https://machinelearningmastery.com/smote-oversampling-for-imbalanced-classification/) over-sampler to create synthetic data of the minority class in order to create a class balance of 1 in our training data. In addition, we use an undersampler to reduce the number of samples in the majority class. Both are from the Python library `imblearn`. 
+
+## Results
 
 ### PCA
 
@@ -76,10 +81,10 @@ PCA results: presidential data  |  PCA results: senatorial data
 
 This table shows the F1 scores of each model for each dataset:
 
-|                   | AdaBoost | Random Forest | Bagging | Ensemble |
-|-------------------|----------|---------------|---------|----------|
-| Presidential data | 0.179    | 0.112         | 0.167   | 0.118    |
-| Senatatorial data | 0.350    | 0.258         | 0.267   | 0.284    |
+|                   | AdaBoost | Random Forest | Bagging | Ensemble | RNN |
+|-------------------|----------|---------------|---------|----------|-----|
+| Presidential data | 0.179    | 0.112         | 0.167   | 0.118    | 0.456 |
+| Senatatorial data | 0.350    | 0.258         | 0.267   | 0.284    | 0.476    |
 
 The following are confusion matrices that correspond to the models with the best F1-scores for each dataset:
 
@@ -97,6 +102,14 @@ AdaBoost for Senatorial:
 | Non-flip | 988      | 518  |
 | Flip     | 176      | 187  |
 
+The following is a plot representing the degree to which the F1-score, precision, and recall vary with the AdaBoost Senatorial classifier. The variable W represents the ratio to which the minority class ("Flip") is prioritized over the majority class ("Non-flip") at the time of training. We observe that for the F1-score stays roughly the same as W increases, buoyed by a gradual increase in recall but a gradual decrease in precision.
+
+![AdaBoost plot](/docs/assets/adaboost_plot.png)
+
+## Conclusions
+
+TODO: what are our conclusions?
+
 From our preliminary results, we observe that our model faces the following challenges:
 - Curse of dimensionality. We use either 117 or 118 PCA-created columns as our features, which we believe may still be too many to make distances between points in Euclidean space be meaningful.
 - Lack of real-world samples in the minority class. In real-world elections, only a small handful of elections see power transferred from one party to another. This creates a large, but natural, imbalance in the dataset that we observe even SMOTE can only partially correct.
@@ -106,26 +119,6 @@ From our preliminary results, we observe that our model faces the following chal
 
 https://github.com/V-TERM/cs7641_census_project/blob/668bfdc1adaf488440158ca84231d255c03efdf6/Project_Proposal.mp4
 
-## Distribution of Work
-
-| Task | Team |
-|------|------|
-| Data download and preprocessing | All |
-| Unsupervised model | Monish, Eric, Vyshnavi |
-| Supervised model | Ramachandren, Tony |
-
-## Timeline
-
-| Date | Description |
-|------|-------------|
-| Oct 19 | Select datasets and attributes in census data to use; select preliminary model design. |
-| Oct 26 | Complete extraction of census dataset; begin writing preprocessing and PCA scripts. |
-| Nov 02 | Complete data preprocessing and PCA; begin training model and evaluating results. |
-| Nov 09 | Continue training and evaluation; work on improving methodology. |
-| Nov 16 | Midterm report due. Finalize results for report. |
-| Nov 23 | Continue training and evaluation; work on improving methodology. |
-| Nov 30 | Continue training and evaluation; work on improving methodology. |
-| Dec 07 | Final report due. Finalize results for report. |
           
 ## References
 <a id="1">[1]</a> United States Census. "Explore Census Data." Retrieved from https://data.census.gov/cedsci/.
