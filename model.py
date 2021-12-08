@@ -42,19 +42,27 @@ def run_models_classifier(filename):
         print(confusion_matrix(y_test, y_pred))
         print("Cross entropy loss:", log_loss(y_test, y_pred))
 
-    knc = AdaBoostClassifier()
-    params_knc = {'n_estimators': np.arange(50, 100, 10)}
-    knc_gs = GridSearchCV(knc, params_knc, cv=5)
-    knc_gs.fit(X_train, y_train)
+    sample_weights = np.zeros(y_train.shape[0])
+    sample_weights[y_train == 0] = 1.0
 
-    knc_best = knc_gs.best_estimator_
-    print("Best ADA params:")
-    print(knc_gs.best_params_)
+    minority_weight = [0.5 * i + 1.0 for i in range(9)]
+    for w in minority_weight:
+        print("W =", w)
+        sample_weights[y_train == 1] = w
 
-    y_pred = knc_best.predict(X_test)
-    print_results("ADA", y_test, y_pred)
+        knc = AdaBoostClassifier()
+        params_knc = {'n_estimators': np.arange(50, 100, 10)}
+        knc_gs = GridSearchCV(knc, params_knc, cv=5)
+        knc_gs.fit(X_train, y_train, sample_weight=sample_weights)
+
+        knc_best = knc_gs.best_estimator_
+        print("Best ADA params:")
+        print(knc_gs.best_params_)
+
+        y_pred = knc_best.predict(X_test)
+        print_results("ADA", y_test, y_pred)
     
-    rfc = RandomForestClassifier(n_jobs=-1)
+    rfc = RandomForestClassifier(n_jobs=-1, class_weight={0:1,1:5})
     params_rfc = {'n_estimators': [1500]}
     rfc_gs = GridSearchCV(rfc, params_rfc, cv=5)
     rfc_gs.fit(X_train, y_train)
@@ -72,7 +80,7 @@ def run_models_classifier(filename):
     svc_gs.fit(X_train, y_train)
 
     svc_best = svc_gs.best_estimator_
-    print("Best SVC params:")
+    print("Best BagC params:")
     print(svc_gs.best_params_)
 
     y_pred = svc_best.predict(X_test)
@@ -145,6 +153,8 @@ def run_models_regressor(filename):
     print("MSE", mean_squared_error(y_test, y_pred))
 
 if __name__ == '__main__':
-    run_models_classifier("./tmp/county_sen.csv")
-    run_models_classifier("./tmp/county_pres.csv")
-    
+    max_diff = 1
+    #max_diff = 2
+    #max_diff = 3
+    run_models_classifier(f"./data/county_sen_{max_diff}_pca.csv")
+    run_models_classifier(f"./data/county_pres_{max_diff}_pca.csv")
