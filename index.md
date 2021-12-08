@@ -113,7 +113,7 @@ AdaBoost for Senatorial:
 
 The following is a plot representing the degree to which the F1-score, precision, and recall vary with the AdaBoost Senatorial classifier. The variable W represents the ratio to which the minority class ("Flip") is prioritized over the majority class ("Non-flip") at the time of training / parameter learning. We decided to vary this value in order to explore whether or not modifying it would contribute to improving performance in the face of class imbalance.
 
-<img src="/docs/assets/adaboost_plot.png" width="400" height="400" />
+![AdaBoost](/docs/assets/adaboost_plot.png)
 
 ## Discussion
 
