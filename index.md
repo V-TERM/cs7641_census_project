@@ -78,8 +78,8 @@ This table shows the F1 scores of each model for each dataset:
 
 |                   | AdaBoost | Random Forest | Bagging | Ensemble |
 |-------------------|----------|---------------|---------|----------|
-| Presidential data | 0.298    | 0.226         | 0.232   | 0.225    |
-| Senatatorial data | 0.175    | 0.093         | 0.059   | 0.047    |
+| Presidential data | 0.179    | 0.112         | 0.167   | 0.118    |
+| Senatatorial data | 0.350    | 0.258         | 0.267   | 0.284    |
 
 The following are confusion matrices that correspond to the models with the best F1-scores for each dataset:
 
@@ -87,15 +87,15 @@ AdaBoost for Presidential:
 
 |          | Non-flip | Flip |
 |----------|----------|------|
-| Non-flip | 1296     | 209  |
-| Flip     | 262      | 100  |
+| Non-flip | 838      | 234  |
+| Flip     | 68       | 33   |
 
 AdaBoost for Senatorial:
 
 |          | Non-flip | Flip |
 |----------|----------|------|
-| Non-flip | 1047     | 5    |
-| Flip     | 117      | 3    |
+| Non-flip | 988      | 518  |
+| Flip     | 176      | 187  |
 
 From our preliminary results, we observe that our model faces the following challenges:
 - Curse of dimensionality. We use either 117 or 118 PCA-created columns as our features, which we believe may still be too many to make distances between points in Euclidean space be meaningful.
