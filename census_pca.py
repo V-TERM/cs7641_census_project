@@ -3,6 +3,7 @@ from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import os.path as osp
 
 
 class CensusPCA():
@@ -63,8 +64,17 @@ class CensusPCA():
 		plt.savefig(outfile)
 
 if __name__ == '__main__':
+	#max_diff = 1
+	#max_diff = 2
+	max_diff = 3
+
+	#dataset = 'state_pres'
+	#dataset = 'state_sen'
+	dataset = 'county_pres'
+	#dataset = 'county_sen'
+
 	pca = CensusPCA()
-	pca.import_data("./tmp/state_pres.csv")
+	pca.import_data(osp.join("./data", f"{dataset}_{max_diff}.csv"))
 	pca.run_pca()
-	pca.write_to_file("./tmp/state_pres_pca.csv")
-	pca.visualize_to_file("./tmp/state_pres_pca.png")
+	pca.write_to_file(osp.join("./data", f"{dataset}_{max_diff}_pca.csv"))
+	pca.visualize_to_file(osp.join("./data", f"{dataset}_{max_diff}_pca.png"))

@@ -4,11 +4,20 @@ import pandas as pd
 import json
 from tqdm import tqdm
 join = os.path.join
+import pickle
+
+MAX_DIFF = 1  # default
 
 def calc_pct_change(x):
     for col in x:
         if col not in ['year', 'state_name', 'cnty_name']:
-            x[col] = x[col].diff(periods=-1)   
+            if MAX_DIFF >= 2:
+                col2 = col + "_2"
+                x[col2] = x[col].diff(periods=2)
+            if MAX_DIFF >= 3:
+                col3 = col + "_3"
+                x[col3] = x[col].diff(periods=3)
+            x[col] = x[col].diff(periods=1)
     return x
 
 class Presidential_Results(object):
@@ -63,7 +72,8 @@ class Presidential_Results(object):
 
         census_data_mask = census_data['year'].isin(years)
         census_data = census_data.drop(columns=['state', 'county', 'state_fips', 'cnty_fips'])
-        census_data = census_data.groupby(pd.Grouper(key='cnty_name'), as_index=False).apply(calc_pct_change)
+        census_data = census_data.groupby(pd.Grouper(key='cnty_name'), as_index=False)
+        census_data = census_data.apply(calc_pct_change)
         
         # election_results = election_results[election_year_msk]
         winners = np.argmax(election_results, axis=1)
@@ -78,12 +88,14 @@ class Presidential_Results(object):
                 # label[i, :] = np.abs(label[i, :])        
                 label[i, :] = 0
             else:
-                label[i, : ] = 1
+                label[i, :] = 1
 
 
         label = label[election_year_msk]
         census_data = census_data[census_data_mask]
-        census_data['label'] = label        
+        census_data['label'] = label
+        census_data = census_data.dropna()
+        
         return census_data
 
     def get_state(self, state):
@@ -116,6 +128,7 @@ class Presidential_Results(object):
         census_data = census_data[census_data_mask]
         census_data['label'] = label
         census_data['state'] = state
+        census_data = census_data.dropna()
         return census_data
 
 class Senate_Result(Presidential_Results):
@@ -135,15 +148,21 @@ def preprocess_presidential_results():
             county_df = _df
         else:
             county_df = pd.concat([county_df, _df])
+    end_cols = ['state_name', 'cnty_name', 'label']
+    county_df = county_df[[c for c in county_df if c not in end_cols] + end_cols]
+    county_df.to_csv(f"./county_pres_{MAX_DIFF}.csv")
 
-    county_df.to_csv("./tmp/county_pres.csv")
     for state in tqdm(_dataloader.states, desc='state presidential preprocessing'):
         _df = _dataloader.get_state(state.strip())
         if state_df is None:
             state_df = _df
         else:
             state_df = pd.concat([state_df, _df])
-    state_df.to_csv("./tmp/state_pres.csv")
+    end_cols = ['state', 'label']
+    state_df = state_df[[c for c in state_df if c not in end_cols] + end_cols]
+    state_df = state_df.drop(columns=['state_2','county_2','state_fips_2','cnty_fips_2',
+                                    'state_3','county_3','state_fips_3','cnty_fips_3'], errors='ignore')
+    state_df.to_csv(f"./state_pres_{MAX_DIFF}.csv")
     return county_df, state_df
 
 
@@ -157,7 +176,9 @@ def preprocess_senate_results():
             county_df = _df
         else:
             county_df = pd.concat([county_df, _df])
-    county_df.to_csv("./tmp/county_sen.csv")
+    end_cols = ['state_name', 'cnty_name', 'label']
+    county_df = county_df[[c for c in county_df if c not in end_cols] + end_cols]
+    county_df.to_csv(f"./county_sen_{MAX_DIFF}.csv")
 
     for state in tqdm(_dataloader.states, desc='state senate preprocessing'):
         _df = _dataloader.get_state(state.strip())
@@ -165,10 +186,15 @@ def preprocess_senate_results():
             state_df = _df
         else:
             state_df = pd.concat([state_df, _df])
-    state_df.to_csv("./tmp/state_sen.csv")
+    end_cols = ['state', 'label']
+    state_df = state_df[[c for c in state_df if c not in end_cols] + end_cols]
+    state_df = state_df.drop(columns=['state_2','county_2','state_fips_2','cnty_fips_2',
+                                    'state_3','county_3','state_fips_3','cnty_fips_3'], errors='ignore')
+    state_df.to_csv(f"./state_sen_{MAX_DIFF}.csv")
     return county_df, state_df
 
 if __name__ == "__main__":
+    MAX_DIFF = 3
     df1, df2 = preprocess_presidential_results()
-    df1, df2 = preprocess_senate_results()
+    #df1, df2 = preprocess_senate_results()
     
